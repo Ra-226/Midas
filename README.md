@@ -137,7 +137,7 @@ This is a list, for each attack, of its parameters and values of each, in dictio
 - `'jigsaw'`: { $'\alpha'$: 1, $'\beta'$: 0.9, *'BaseRec'*: 45, *'ConfRec'* = 35, *'RefSpeed'*: 10},
 - `'midas'`: { $'\rho'$: 20, $'\sigma'$: 55, $'\eta'$: 1, $'\gamma'$: 4, $'\mu'$: 25, $'\delta'$: 10},
 - `'midas_incremental_optimization'`: { $'\rho'$: 20, $'\sigma'$: 55, $'\eta'$: 1, $'\gamma'$: 4, $'\mu'$: 25, $'\delta'$: 10},
-- `'ihop`$^M$': { $'\theta'$: 5, *'pfree'*: 0.25, *'niters'*: 500},
+- `'ihop`<sup>M</sup>': { $'\theta'$: 5, *'pfree'*: 0.25, *'niters'*: 500},
 - `'clrz'` (defense): {*'tpr'*: 0.999, *'fpr'*: $[0.01, 0.02, 0.05]$}
 
 ### Run
