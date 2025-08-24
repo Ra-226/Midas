@@ -1,12 +1,8 @@
-# Midas & IHOP<sup>M</sup>: High-Accuracy Inference Attacks Using Minimal Leakage Against SSE
+# Boosting Query Recovery against Encrypted Databases: High-Accuracy and Efficient Inference Attacks Using Minimal Leakage
 
 ------
 
-### Implementations of Midas & IHOP<sup>M</sup>
-
-This repository contains Python 3.9 implementation of the attacks presented in:
-
-**Boosting Query Recovery against Encrypted Databases: High-Accuracy and Efficient Inference Attacks Using Minimal Leakage** 
+This repository contains Python 3.9 implementation of the attacks presented in the paper.
 
 
 ### Install Required Packages
