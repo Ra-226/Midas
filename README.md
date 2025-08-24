@@ -2,8 +2,6 @@
 
 ------
 
-**The Tao produced One; One produced Two; Two produced Three; Three produced All things.               -- Laozi's Tao Te Ching**
-
 ### Implementations of Midas & IHOP<sup>M</sup>
 
 This repository contains Python 3.9 implementation of the attacks presented in:
