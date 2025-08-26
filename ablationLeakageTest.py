@@ -38,7 +38,7 @@ if __name__ == '__main__':
     count = 10  # Number of experiments
 
     word_len = 500  # Number of keywords
-    df = pd.DataFrame(columns=["count", 'm', "use_non_co_occurrence", "time", "recovery"])
+    df = pd.DataFrame(columns=["count", 'm', "use_co_absence", "time", "recovery"])
     with open('./Datasets/Enron_3000.pkl', 'rb') as f:
         pkl = pickle.load(f)
 
@@ -70,10 +70,10 @@ if __name__ == '__main__':
             B = B.dropna(axis=1, how='all')
             B = B.replace(np.nan, 0)
 
-            # Generate co-occurrence matrix and non-co-occurrence matrix.
+            # Generate co-occurrence matrix and co-absence matrix.
             M, N = utils.co_occurrence(A, B, num1, num2)
-            M_, N_ = utils.mutual_difference(A, B, num1, num2)
-            # The main diagonal of the (non-)co-occurrence matrix
+            M_, N_ = utils.co_absence(A, B, num1, num2)
+            # The main diagonal of the co-occurrence(absence) matrix
             volumeToken = pd.Series(np.diag(N), index=N.index)
             volumeKeyword = pd.Series(np.diag(M), index=M.index)
             vTD = pd.Series(np.diag(N_), index=N_.index)

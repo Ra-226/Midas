@@ -16,7 +16,7 @@ def co_occurrence(wordAccess, tokenAccess, num1, num2):
     return M, N
 
 
-def mutual_difference(wordAccess, tokenAccess, num1, num2):
+def co_absence(wordAccess, tokenAccess, num1, num2):
     A_ = 1 - wordAccess
     M_ = A_.dot(A_.T) / num1
 
@@ -30,11 +30,11 @@ def accuracy(result):
     return sum(acc)
 
 
-def CLRZ(coM, non_coM, TPR, FPR):
+def CLRZ(coM, caM, TPR, FPR):
     row, col = np.diag_indices_from(coM)
-    updataM = TPR * TPR * coM + FPR * FPR * non_coM + TPR * FPR * (1 - coM - non_coM)
+    updataM = TPR * TPR * coM + FPR * FPR * caM + TPR * FPR * (1 - coM - caM)
     updataM = updataM.values
-    temp = TPR * np.diag(coM) + FPR * np.diag(non_coM)
+    temp = TPR * np.diag(coM) + FPR * np.diag(caM)
     updataM[row, col] = temp
     updataM = pd.DataFrame(updataM, coM.index, coM.index)
     return updataM

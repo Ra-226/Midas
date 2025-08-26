@@ -61,16 +61,16 @@ if __name__ == '__main__':
             B = B.dropna(axis=1, how='all')
             B = B.replace(np.nan, 0)
 
-            # Generate co-occurrence matrix and non-co-occurrence matrix.
+            # Generate co-occurrence matrix and co-absence matrix.
             M, N = utils.co_occurrence(A, B, num1, num2)
-            M_, N_ = utils.mutual_difference(A, B, num1, num2)
+            M_, N_ = utils.co_absence(A, B, num1, num2)
             if v_m != 0:
                 M = utils.CLRZ(M, M_, p, v_m)
                 M_ = utils.CLRZ(M, M_, 1 - p, 1 - v_m)
                 N = utils.CLRZ(N, N_, p, v_m)
                 N_ = utils.CLRZ(N, N_, 1 - p, 1 - v_m)
 
-            # The main diagonal of the (non-)co-occurrence matrix
+            # The main diagonal of the co-occurrence(absence) matrix
             volumeToken = pd.Series(np.diag(N), index=N.index)
             volumeKeyword = pd.Series(np.diag(M), index=M.index)
             vTD = pd.Series(np.diag(N_), index=N_.index)

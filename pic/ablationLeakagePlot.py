@@ -11,13 +11,13 @@ scenarios = "S2"
 
 with open(f"../pic_pkl/ablationLeakage{scenarios}Enron.pkl", "rb") as f:
     pkl = pickle.load(f)
-hue_order = pkl['use_non_co_occurrence'].unique()
+hue_order = pkl['use_co_absence'].unique()
 custom_colors = ["C0", "#1fb4a7"]
 m = [0.25, 0.5, 0.75]
 fig, ax1 = plt.subplots(figsize=(6, 4))
 
 ax = sns.barplot(
-    pkl, x='m', y='recovery', hue='use_non_co_occurrence',
+    pkl, x='m', y='recovery', hue='use_co_absence',
     hue_order=hue_order,
     palette=dict(zip(hue_order, custom_colors)),
 )
