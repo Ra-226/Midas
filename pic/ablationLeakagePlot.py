@@ -31,7 +31,6 @@ plt.legend(
 
 plt.grid(False)
 plt.grid(axis='y', ls='--')
-
 plt.xticks(ticks=[0, 1, 2], labels=["$0.25$", "$0.5$", "$0.75$"], fontsize=16)
 yaxis = [0.00, .1, 0.2, 0.4, 0.6]
 plt.yticks(yaxis, yaxis, fontsize=16)

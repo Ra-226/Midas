@@ -28,7 +28,6 @@ sns.lineplot(pkl, x='q', y='recovery', hue='attack',
              palette=["C1", "C2", 'C3', 'C4', 'c', 'C6', "C0", "C5"], style="attack", linewidth=3,
              markers=["o", "*", "<", "v", "d", "^", "H", ">"], markeredgecolor='none', markersize=16, legend=False,
              errorbar=('ci', 95))
-
 ax1.lines[0].set_linestyle("-")
 ax1.lines[1].set_linestyle("-")
 ax1.lines[2].set_linestyle("-")
