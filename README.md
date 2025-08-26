@@ -35,18 +35,22 @@ Midas/
 │      Lucene_6000.pkl            # Contains 6000 keywords/queries
 │
 ├─pic
-│  │  ablationTest.py
+│  │  ablationLeakagePlot.py
+│  │  ablationOptimizeMPlot.py
+│  │  ablationOptimizeNPlot.py
+│  │  ablationRRPlot.py
 │  │  auxS1EnronPlot.py
 │  │  auxS1LucenePlot.py
 │  │  auxS2EnronPlot.py
 │  │  auxS2LucenePlot.py
 │  │  auxS3EnronPlot.py
 │  │  auxS3LucenePlot.py
-│  │  clrzS1EnronPlot.py
-│  │  clrzS1LucenePlot.py
+│  │  clrzPlot.py
 │  │  CRPlot.py
 │  │  ihopMPlot.py
-│  │  limitedTimePlot.py
+│  │  limitedTimeMEnronPlot.py
+│  │  limitedTimeNEnronPlot.py
+│  │  limitedTimeNLargeLucenePlot.py
 │  │  mS1EnronPlot.py
 │  │  mS1EnronTimePlot.py
 │  │  mS1LucenePlot.py
@@ -57,15 +61,16 @@ Midas/
 │  │  mS2LuceneTimePlot.py
 │  │  mS3EnronPlot.py
 │  │  mS3EnronTimePlot.py
+│  │  mTestLimitedTimePlot.py
 │  │  nS1EnronPlot.py
 │  │  nS1EnronTimePlot.py
 │  │  nS2EnronPlot.py
 │  │  nS2EnronTimePlot.py
 │  │  nS3EnronPlot.py
 │  │  nS3EnronTimePlot.py
+│  │  nTestLimitedTimePlot.py
 │  │  PRaPlot.py
 │  │  PRbPlot.py
-│  │  prioriQueriesPlot.py
 │  │  RRPlot.py
 │  │
 │  └─pictures
@@ -106,9 +111,13 @@ The code uses two datasets (`Enron` or `Lucene`), with the following three scena
 
 `auxTest.py`: evaluates the impact of the attacker's auxiliary knowledge (the number of non indexed documents, $|\mathsf{D}_{sim}|$) on attacks in different datasets and scenarios, including recovery accuracy and attack time.
 
+`ablation*Test.py`: ablation experiment.
+
 `mTest.py`: evaluates the impact of query quantity ($m$) on attacks in different datasets and scenarios, including recovery accuracy and attack time.
 
 `nTest.py`: evaluates the impact of keyword quantity ($n$) on attacks in different datasets and scenarios, including recovery accuracy and attack time.
+
+`*LimitedTime*.py`: comparison under similar runtime.
 
 `clrzTest.py`: evaluates the impact of CLRZ defense on attacks in different datasets and scenarios.
 
@@ -131,8 +140,7 @@ This is a list, for each attack, of its parameters and values of each, in dictio
 - `'sap'`: { $'\alpha'$: 0},
 - `'ihop'`: {*'pfree'*: 0.25, *'niters'*: 1000},
 - `'jigsaw'`: { $'\alpha'$: 1, $'\beta'$: 0.9, *'BaseRec'*: 45, *'ConfRec'* = 35, *'RefSpeed'*: 10},
-- `'midas'`: { $'\rho'$: 20, $'\sigma'$: 55, $'\eta'$: 1, $'\gamma'$: 4, $'\mu'$: 25, $'\delta'$: 10},
-- `'midas_incremental_optimization'`: { $'\rho'$: 20, $'\sigma'$: 55, $'\eta'$: 1, $'\gamma'$: 4, $'\mu'$: 25, $'\delta'$: 10},
+- `'midas_incremental_optimization/midas'`: { $'\rho'$: 20, $'\sigma'$: 55, $'\eta'$: 1, $'\gamma'$: 4, $'\mu'$: 25, $'\delta'$: 10},
 - `'ihop`<sup>M</sup>': { $'\theta '$: 5, *'pfree'*: 0.25, *'niters'*: 500},
 - `'clrz'` (defense): {*'tpr'*: 0.999, *'fpr'*: $[0.01, 0.02, 0.05]$}
 
@@ -160,14 +168,14 @@ python3 ./CRTest.py
 python3 ./pic/CRPlot.py       # Draw a figure
 ```
 
-#### Effect of different parameters on IHOP$^M$ accuracy (Figure 5)
+#### Effect of different parameters on IHOP<sup>M</sup> accuracy (Figure 5)
 
 ```shell
 python3 ./ihopMTest.py 	
 python3 ./pic/ihopMPlot.py       # Draw a figure
 ```
 
-#### Impact of non-co-occurrence leakage for prior queries in PR (Figure 6)
+#### Impact of co-absence leakage for prior queries in PR (Figure 6)
 
 ```shell
 python3 ./ablationLeakageTest.py --scenarios S1	   	    # --scenarios: optional 'S1' and 'S2'.
