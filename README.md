@@ -1,14 +1,8 @@
-# Midas & IHOP<sup>M</sup>: High-Accuracy Inference Attacks Using Minimal Leakage Against SSE
+# Boosting Query Recovery against Encrypted Databases: High-Accuracy and Efficient Inference Attacks Using Minimal Leakage
 
 ------
 
-**The Tao produced One; One produced Two; Two produced Three; Three produced All things.               -- Laozi's Tao Te Ching**
-
-### Implementations of Midas & IHOP<sup>M</sup>
-
-This repository contains Python 3.9 implementation of the attacks presented in:
-
-**Boosting Query Recovery against Encrypted Databases: High-Accuracy and Efficient Inference Attacks Using Minimal Leakage** 
+This repository contains Python 3.9 implementation of the attacks presented in the paper.
 
 
 ### Install Required Packages
@@ -139,7 +133,7 @@ This is a list, for each attack, of its parameters and values of each, in dictio
 - `'jigsaw'`: { $'\alpha'$: 1, $'\beta'$: 0.9, *'BaseRec'*: 45, *'ConfRec'* = 35, *'RefSpeed'*: 10},
 - `'midas'`: { $'\rho'$: 20, $'\sigma'$: 55, $'\eta'$: 1, $'\gamma'$: 4, $'\mu'$: 25, $'\delta'$: 10},
 - `'midas_incremental_optimization'`: { $'\rho'$: 20, $'\sigma'$: 55, $'\eta'$: 1, $'\gamma'$: 4, $'\mu'$: 25, $'\delta'$: 10},
-- `'ihop`$^M$': { $'\theta'$: 5, *'pfree'*: 0.25, *'niters'*: 500},
+- `'ihop`<sup>M</sup>': { $'\theta '$: 5, *'pfree'*: 0.25, *'niters'*: 500},
 - `'clrz'` (defense): {*'tpr'*: 0.999, *'fpr'*: $[0.01, 0.02, 0.05]$}
 
 ### Run
