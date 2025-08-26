@@ -25,7 +25,7 @@ ax = sns.barplot(
 handles, _ = ax.get_legend_handles_labels()
 plt.legend(
     handles=handles,
-    labels=['PR with non-co-occurrence leakage', 'PR without non-co-occurrence leakage'],
+    labels=['PR with co-absence pattern', 'PR without co-absence pattern'],
     fontsize=12,
 )
 

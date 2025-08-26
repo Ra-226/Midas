@@ -41,8 +41,6 @@ ax1.lines[7].set_linestyle("-")
 plt.grid(False)
 plt.grid(axis='y', ls='--')
 
-plt.title("Adaptive attacks on Enron", fontsize=20)
-
 m = [0, 1, 2, 3]
 plt.xticks(m, ['No def', 0.01, 0.02, 0.05], fontsize=16)
 plt.yticks([0.00, 0.25, 0.50, 0.75, 1.00], [0.00, 0.25, 0.50, 0.75, 1.00], fontsize=16)
