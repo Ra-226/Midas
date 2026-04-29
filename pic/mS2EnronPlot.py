@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Aug  2 13:33:34 2023
-
-@author: Ra
-"""
 import seaborn as sns
 import pickle
 import matplotlib.pyplot as plt

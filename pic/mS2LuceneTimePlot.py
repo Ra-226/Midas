@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Fri Aug  4 09:45:49 2023
-
-@author: Ra
-"""
 
 import seaborn as sns
 import pickle

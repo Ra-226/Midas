@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Jul 13 17:06:06 2023
-
-@author: Ra
-"""
 
 import matplotlib.pyplot as plt
 from matplotlib.legend import Legend

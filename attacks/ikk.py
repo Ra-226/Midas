@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Jul 19 09:07:26 2023
-
-@author: Ra
-"""
 
 # from github.com/simon-oya/USENIX22-ihop-code
 

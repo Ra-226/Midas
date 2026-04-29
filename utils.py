@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed May  3 14:37:34 2023
-
-@author: Ra
-"""
 import pandas as pd
 import numpy as np
 import tqdm
