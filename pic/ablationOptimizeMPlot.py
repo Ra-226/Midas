@@ -17,7 +17,7 @@ fig, ax1 = plt.subplots(figsize=(6, 4))
 sns.barplot(pkl, x='m', y='time', hue='attack',
             hue_order=['midas', "midasSlow"],
             palette=['C0', "#1fb4a7"],
-            errorbar=None,
+            errorbar=('ci', 95),
             )
 ax1.legend_.remove()
 plt.grid(False)
