@@ -13,7 +13,16 @@ def compute_log_binomial_probability_matrix(ntrials, probabilities, observations
     :param observations: vector with integers (observations)
     :return log_matrix: |probabilities| x |observations| matrix with the log binomial probabilities
     """
-    probabilities = np.clip(np.array(probabilities), 1e-10, 1 - 1e-10)
+    probabilities = np.array(probabilities)
+    if any(probabilities > 0):
+        probabilities[probabilities == 0] = min(probabilities[
+                                                    probabilities > 0]) / 100  # To avoid numerical errors. An error would mean the adversary information is very off.
+    else:
+        probabilities += 1e-10
+    if any(probabilities == 1):
+        print(f"[DEBUG] probabilities == 1 detected, count={np.sum(probabilities == 1)}")
+        probabilities[probabilities == 1] = 1 - min(1 - probabilities[probabilities < 1]) / 100
+
     column_term = np.array([np.log(probabilities) - np.log(1 - np.array(probabilities))]).T  # COLUMN TERM
     last_term = np.array([ntrials * np.log(1 - np.array(probabilities))]).T  # COLUMN TERM
     log_matrix = np.array(observations) * column_term + last_term
