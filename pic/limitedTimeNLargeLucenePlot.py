@@ -7,7 +7,7 @@ from matplotlib.lines import Line2D
 from matplotlib.legend import Legend
 
 m = 500
-scenarios = "S1"
+scenarios = "S2"
 file = f"limited_time_{scenarios}_LuceneLarge_n_{[3000, 5000, 6000]}_m_{m}_count_10"
 
 with open(f"../pic_pkl/{file}.pkl", "rb") as f:
@@ -19,8 +19,8 @@ order = sorted(df['n'].unique())
 attacks = ['midas', 'jigsaw', 'ihop', 'ihopM']
 attackexample = ['Midas', 'Jigsaw', 'IHOP', 'IHOP$^M$']
 
-common_colors_acc = ['C0', 'C5', 'C4', 'c']
-common_colors_acc = ['C0', 'C3', 'C2', 'C1']
+# common_colors_acc = ['C0', 'C5', 'C4', 'c']
+common_colors_acc = ['C0', 'C2', 'C3', 'C1']
 
 common_colors_time = sns.color_palette("Set2")
 palette = dict(zip(attacks, common_colors_acc))

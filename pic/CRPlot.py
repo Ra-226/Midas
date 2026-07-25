@@ -9,7 +9,14 @@ import pandas as pd
 import copy
 import numpy as np
 
-with open("../pic_pkl/CRTest_Dsim_5000_count_30.pkl", "rb") as f:
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--dataset', default='Enron', choices=['Enron', 'Lucene'])
+args = parser.parse_args()
+dataset = args.dataset
+
+with open(f"../pic_pkl/CRTest_Dsim_5000_count_30_{dataset}.pkl", "rb") as f:
     pkl = pickle.load(f)
 
 fig, ax1 = plt.subplots(figsize=(6, 4))
@@ -42,6 +49,6 @@ plt.yticks(yaxis, yaxis, fontsize=16)
 ax1.set_ylabel('Accuracy', fontsize=16)
 ax1.set_xlabel('$\mu$', fontsize=16)
 
-plt.savefig("./pictures/CR.pdf", bbox_inches='tight')
+plt.savefig(f"./pictures/CR{dataset}.pdf", bbox_inches='tight')
 
 plt.show()

@@ -20,7 +20,10 @@ if __name__ == '__main__':
     auxiliary_knowledge_quantity = 5000
 
     df = pd.DataFrame(columns=["count", 'x', 'theta', "time", "recovery"])
-    with open('./Datasets/Enron_3000.pkl', 'rb') as f:
+    args = utils.parameter_parse('Enron', 'S1')
+    dataset = args.dataset
+
+    with open(f'./Datasets/{dataset}_3000.pkl', 'rb') as f:
         pkl = pickle.load(f)
 
     # Extract the number of non-indexed and indexed documents and generate an access pattern matrix.
@@ -77,5 +80,5 @@ if __name__ == '__main__':
                 df.loc[len(df)] = [i_count, i_n, v_m, ihopMtime, acc / len(query)]
                 print(df.iloc[-1])
 
-    with open("./pic_pkl/ihopM.pkl", "wb") as f:
+    with open(f"./pic_pkl/ihopM{dataset}.pkl", "wb") as f:
         pickle.dump(df, f)

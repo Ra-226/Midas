@@ -9,7 +9,14 @@ import pandas as pd
 import copy
 import numpy as np
 
-with open("../pic_pkl/RR.pkl", "rb") as f:
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--dataset', default='Enron', choices=['Enron', 'Lucene'])
+args = parser.parse_args()
+dataset = args.dataset
+
+with open(f"../pic_pkl/RR{dataset}.pkl", "rb") as f:
     df = pickle.load(f)
 fig, ax1 = plt.subplots(figsize=(6, 4))
 
@@ -38,4 +45,4 @@ plt.xticks(e_n, e_n, fontsize=16)
 ax1.set_ylabel('Prior query accuracy', fontsize=16)
 ax1.set_xlabel('$\eta$', fontsize=16)
 
-plt.savefig("./pictures/RR.pdf", bbox_inches='tight')
+plt.savefig(f"./pictures/RR{dataset}.pdf", bbox_inches='tight')

@@ -7,6 +7,9 @@ import utils
 import attacks.midas_incremental_optimization as midas
 
 if __name__ == '__main__':
+    args = utils.parameter_parse('Enron')
+    dataset = args.dataset
+
     count = 20  # Number of experiments
     p = [10, 15, 20, 25]
     m = [0.25, 0.5, 0.75]
@@ -14,7 +17,7 @@ if __name__ == '__main__':
 
     df = pd.DataFrame(columns=["count", "len", "p", "m", "inclusionRate", "recovery", "top5"])
 
-    with open('./Datasets/Enron_3000.pkl', 'rb') as f:
+    with open(f'./Datasets/{dataset}_3000.pkl', 'rb') as f:
         pkl = pickle.load(f)
 
     # Extract the number of non-indexed and indexed documents and generate an access pattern matrix.
@@ -76,5 +79,5 @@ if __name__ == '__main__':
                                                                      prior_queries_and_candidate_lists),
                                                                  acc / len(R1), top5_acc / 5]
 
-    with open("./pic_pkl/PR.pkl", "wb") as f:
+    with open(f"./pic_pkl/PR{dataset}.pkl", "wb") as f:
         pickle.dump(df, f)

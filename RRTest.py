@@ -12,7 +12,10 @@ if __name__ == '__main__':
     e_n = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     word_len = 500  # Number of keywords
     df = pd.DataFrame(columns=["count", "e_n", "m", "recovery"])
-    with open('./Datasets/Enron_3000.pkl', 'rb') as f:
+    args = utils.parameter_parse('Enron', 'S1')
+    dataset = args.dataset
+
+    with open(f'./Datasets/{dataset}_3000.pkl', 'rb') as f:
         pkl = pickle.load(f)
 
     # Extract the number of non-indexed and indexed documents and generate an access pattern matrix.
@@ -63,5 +66,5 @@ if __name__ == '__main__':
                 if len(R2) != 0: df.loc[len(df)] = [i_count, r, v_m, utils.accuracy(R2) / len(R2)]
                 print(v_m, r)
 
-    with open("./pic_pkl/RR.pkl", "wb") as f:
+    with open(f"./pic_pkl/RR{dataset}.pkl", "wb") as f:
         pickle.dump(df, f)

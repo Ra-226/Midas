@@ -17,7 +17,10 @@ if __name__ == '__main__':
     mu = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
 
     df = pd.DataFrame(columns=["count", "gamma", "mu", "recovery"])
-    with open('./Datasets/Enron_3000.pkl', 'rb') as f:
+    args = utils.parameter_parse('Enron', 'S1')
+    dataset = args.dataset
+
+    with open(f'./Datasets/{dataset}_3000.pkl', 'rb') as f:
         pkl = pickle.load(f)
 
     # Extract the number of non-indexed and indexed documents and generate an access pattern matrix.
@@ -69,5 +72,5 @@ if __name__ == '__main__':
                 print(v_r, v_u, i_count)
                 print(df.iloc[-1])
 
-    with open(f"./pic_pkl/CRTest_Dsim_{auxiliary_knowledge_quantity}_count_{count}.pkl", "wb") as f:
+    with open(f"./pic_pkl/CRTest_Dsim_{auxiliary_knowledge_quantity}_count_{count}_{dataset}.pkl", "wb") as f:
         pickle.dump(df, f)

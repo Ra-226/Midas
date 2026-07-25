@@ -9,7 +9,14 @@ import pandas as pd
 import copy
 import numpy as np
 
-with open("../pic_pkl/ihopM.pkl", "rb") as f:
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--dataset', default='Enron', choices=['Enron', 'Lucene'])
+args = parser.parse_args()
+dataset = args.dataset
+
+with open(f"../pic_pkl/ihopM{dataset}.pkl", "rb") as f:
     pkl = pickle.load(f)
 
 fig, ax1 = plt.subplots(figsize=(6, 4))
@@ -44,5 +51,5 @@ plt.yticks(yaxis, yaxis, fontsize=16)
 ax1.set_ylabel('Accuracy', fontsize=16)
 ax1.set_xlabel('$n_{iters}$', fontsize=16)
 
-plt.savefig("./pictures/ihopM.pdf", bbox_inches='tight')
+plt.savefig(f"./pictures/ihopM{dataset}.pdf", bbox_inches='tight')
 plt.show()

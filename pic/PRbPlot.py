@@ -6,8 +6,14 @@ from matplotlib.lines import Line2D
 import numpy as np
 import seaborn as sns
 import pickle
+import argparse
 
-with open("../pic_pkl/PR.pkl", "rb") as f:
+parser = argparse.ArgumentParser()
+parser.add_argument('--dataset', default='Enron', choices=['Enron', 'Lucene'])
+args = parser.parse_args()
+dataset = args.dataset
+
+with open(f"../pic_pkl/PR{dataset}.pkl", "rb") as f:
     df = pickle.load(f)
 
 count = 20
@@ -65,4 +71,4 @@ ax2.set_ylim([-0.01, 1.01])
 plt.yticks([0, 0.25, 0.5, 0.75, 1], [0, 0.25, 0.5, 0.75, 1], fontsize=16)
 plt.tick_params(axis='y', colors='red')
 
-plt.savefig("./pictures/PRb.pdf", bbox_inches='tight', bbox_extra_artists=(legend1,))
+plt.savefig(f"./pictures/PRb{dataset}.pdf", bbox_inches='tight', bbox_extra_artists=(legend1,))
