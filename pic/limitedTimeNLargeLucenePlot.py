@@ -20,10 +20,12 @@ attacks = ['midas', 'jigsaw', 'ihop', 'ihopM']
 attackexample = ['Midas', 'Jigsaw', 'IHOP', 'IHOP$^M$']
 
 common_colors_acc = ['C0', 'C5', 'C4', 'c']
+common_colors_acc = ['C0', 'C3', 'C2', 'C1']
+
 common_colors_time = sns.color_palette("Set2")
 palette = dict(zip(attacks, common_colors_acc))
 palette2 = dict(zip(attacks, common_colors_time))
-markers = ['o', '<', 'H', '>']
+markers = ['o', '<', 'd', 's']
 marker_map = dict(zip(attacks, markers))
 
 group_width = 0.8
@@ -53,18 +55,16 @@ for i in range(len(order) - 1):
         ax.axvline(i + 0.5, color='gray', linestyle='--', linewidth=1, alpha=0.6, zorder=0)
 
 ax2 = ax1.twinx()
+mean_times = df.groupby(['n', 'attack'], as_index=False)['time'].mean()
 for atk in attacks:
-    sub = df[df['attack'] == atk].copy()
-    x_base = sub['n'].map(n_to_x).astype(float)
-    x_pos = x_base + offset_map[atk]
-    ax2.scatter(
-        x_pos, sub['time'],
-        s=144, marker=marker_map[atk],
-        edgecolors='black',
-        alpha=0.85,
-        c=[palette2[atk]] * len(sub),
-        zorder=3
-    )
+    sub = mean_times[mean_times['attack'] == atk].sort_values('n')
+    x_pos = [n_to_x[n] + offset_map[atk] for n in sub['n']]
+    # ax2.scatter(x_pos, sub['time'], s=144,
+    #          color=palette2[atk], marker=marker_map[atk],
+    #          edgecolors='black', zorder=3)
+    ax2.scatter(x_pos, sub['time'], s=144,
+                color='red', marker=marker_map[atk],
+                edgecolors='black', zorder=3)
 ax2.set_ylabel('Running Time (s)', fontsize=22, color='red')
 
 handles_box, labels_box = ax1.get_legend_handles_labels()
@@ -73,9 +73,13 @@ ax1.legend(handles_box, ['Midas', 'Jigsaw', 'IHOP', 'IHOP$^M$'],
            ncol=len(attacks), frameon=True, framealpha=1, fontsize=20,
            columnspacing=2)
 
+# scatter_handles = [Line2D([0], [0], marker=marker_map[atk], color='w',
+#                           markerfacecolor=palette2[atk], markersize=12,
+#                           markeredgecolor='black', label=atk) for atk in attacks]
 scatter_handles = [Line2D([0], [0], marker=marker_map[atk], color='w',
-                          markerfacecolor=palette2[atk], markersize=12,
-                          markeredgecolor='black', label=atk) for atk in attacks]
+                           markerfacecolor='red', markersize=12,
+                           markeredgecolor='black', label=atk) for atk in attacks]
+
 ax2.legend(scatter_handles, ['Midas', 'Jigsaw', 'IHOP', 'IHOP$^M$'], title='Time', title_fontsize=18,
            loc='center left', ncol=2,
            frameon=True,
