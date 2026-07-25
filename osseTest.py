@@ -3,8 +3,12 @@ import numpy as np
 import pandas as pd
 import time
 import utils
-import attacks.midas_incremental_optimization as midas
+import attacks.sap as sap
 import attacks.ihop as ihop
+import attacks.ikk as ikk
+import attacks.midas_incremental_optimization as midas
+import attacks.ihopM as ihopM
+import attacks.score as score
 from attacks.jigsaw import Attacker
 
 if __name__ == '__main__':
@@ -13,11 +17,11 @@ if __name__ == '__main__':
     dataset = args.dataset
 
     TPR = 0.9999
-    # FPR_list = [0.01, 0.02, 0.05, 0]
-    # FPR_list = [0.001, 0.005, 0.01, 0]
-    FPR_list = [0.001, 0.002, 0.005, 0]
+    FPR_list = [0.01, 0.02, 0.05, 0]
+    # FPR_list = [0.005, 0.01, 0.02, 0]
+    # FPR_list = [0.001, 0.002, 0.005, 0]
     queryRate = 0.5
-    count = 3
+    count = 10
     word_len = 500
 
     file = "Enron_3000" if dataset == "Enron" else "Lucene_3000"
@@ -80,35 +84,31 @@ if __name__ == '__main__':
                 volumeToken, volumeKeyword, vTD, vKD, 20)
             t2 = time.time()
             subT = list(prior_queries_and_candidate_lists.keys())
-            if len(subT) > 0:
-                subN = N.loc[subT]
-                subN_ = N_.loc[subT]
-                subV = V.loc[subT]
-                R2 = midas.RR(M, subN, U, subV, R1[:1], 1, 55)
-                result = midas.CR(M, N, R2, 10, 4, 25)
-                midas_time = time.time() - t1
-                acc = utils.accuracy(result)
-                df.loc[len(df)] = [i_count, fpr, 'midas',
-                                   midas_time, acc / len(query)]
-            else:
-                df.loc[len(df)] = [i_count, fpr, 'midas',
-                                   time.time() - t1, 0]
+            subN = N.loc[subT]
+            subN_ = N_.loc[subT]
+            subV = V.loc[subT]
+            R2 = midas.RR(M, subN, U, subV, R1[:1], 1, 55)
+
+            result1 = midas.CR(M, N, R2, 10, 4, 25)
+            midas_time = time.time() - t1
+            acc = utils.accuracy(result1)
+            df.loc[len(df)] = [i_count, fpr, 'midas',
+                               midas_time, acc / len(query)]
             print(f"  midas:  {df.iloc[-1]['recovery']:.3f} ({df.iloc[-1]['time']:.2f}s)")
 
-            # ---- IHOP ----
-            t3 = time.time()
-            result_ihop = ihop.run_ihop(
-                num2, M.values, N.values, wordSet, query, 0.25, 200)
-            ihop_time = time.time() - t3
-            acc = utils.accuracy(result_ihop)
-            df.loc[len(df)] = [i_count, fpr, 'ihop',
-                               ihop_time, acc / len(query)]
-            print(f"  ihop:   {df.iloc[-1]['recovery']:.3f} ({df.iloc[-1]['time']:.2f}s)")
+            # ---- Midas_1 ----
+            t0 = time.time()
+            result0 = midas.CR(M, N, R2, 10, 1, 25)
+            midas_1_time = time.time() - t0 + t2 - t1
+            acc = utils.accuracy(result0)
+            df.loc[len(df)] = [i_count, fpr, 'midas_1',
+                               midas_1_time, acc / len(query)]
+            print(f"  midas_1: {df.iloc[-1]['recovery']:.3f} ({df.iloc[-1]['time']:.2f}s)")
 
             # ---- Jigsaw ----
             t4 = time.time()
             attack = Attacker(M.to_numpy(), N.to_numpy(),
-                              45, 35, 10, 1, 0.9)
+                               45, 35, 10, 1, 0.9)
             attack.attack_step_1()
             attack.attack_step_2()
             result_jigsaw = attack.attack_step_3()
@@ -118,6 +118,56 @@ if __name__ == '__main__':
             df.loc[len(df)] = [i_count, fpr, 'jigsaw',
                                time.time() - t4, acc / len(query)]
             print(f"  jigsaw: {df.iloc[-1]['recovery']:.3f} ({df.iloc[-1]['time']:.2f}s)")
+
+            # ---- Score ----
+            t3 = time.time()
+            result_score = score.scorePlus(M, N, R2, 10)
+            score_time = time.time() - t3
+            acc = utils.accuracy(result_score)
+            df.loc[len(df)] = [i_count, fpr, 'score',
+                               score_time, acc / len(query)]
+            print(f"  score:  {df.iloc[-1]['recovery']:.3f} ({df.iloc[-1]['time']:.2f}s)")
+
+            # ---- IKK ----
+            # t6 = time.time()
+            # result_ikk = ikk.run_ikk(M.values, N.values, wordSet, query)
+            # ikk_time = time.time() - t6
+            # acc = utils.accuracy(result_ikk)
+            # df.loc[len(df)] = [i_count, fpr, 'ikk',
+            #                    ikk_time, acc / len(query)]
+            # print(f"  ikk:    {df.iloc[-1]['recovery']:.3f} ({df.iloc[-1]['time']:.2f}s)")
+
+            # ---- SAP ----
+            t5 = time.time()
+            probabilities = np.diag(M)
+            observations = np.diag(N) * num2
+            result_sap = sap._run_algorithm(
+                num2, probabilities, observations, wordSet, query)
+            sap_time = time.time() - t5
+            acc = utils.accuracy(result_sap)
+            df.loc[len(df)] = [i_count, fpr, 'sap',
+                               sap_time, acc / len(query)]
+            print(f"  sap:    {df.iloc[-1]['recovery']:.3f} ({df.iloc[-1]['time']:.2f}s)")
+
+            # ---- IHOP ----
+            t7 = time.time()
+            result_ihop = ihop.run_ihop(
+                num2, M.values, N.values, wordSet, query, 0.25, 200)
+            ihop_time = time.time() - t7
+            acc = utils.accuracy(result_ihop)
+            df.loc[len(df)] = [i_count, fpr, 'ihop',
+                               ihop_time, acc / len(query)]
+            print(f"  ihop:   {df.iloc[-1]['recovery']:.3f} ({df.iloc[-1]['time']:.2f}s)")
+
+            # ---- IHOP^M ----
+            t8 = time.time()
+            result_ihopm = ihopM.run_ihop(
+                num2, M.values, N.values, wordSet, query, 0.25, 100, R2[:5])
+            ihopM_time = time.time() - t8
+            acc = utils.accuracy(result_ihopm)
+            df.loc[len(df)] = [i_count, fpr, 'ihopM',
+                               ihopM_time, acc / len(query)]
+            print(f"  ihopM:  {df.iloc[-1]['recovery']:.3f} ({df.iloc[-1]['time']:.2f}s)")
 
     with open(f"./pic_pkl/osse{scenarios}{dataset}.pkl", "wb") as f:
         pickle.dump(df, f)
