@@ -129,13 +129,13 @@ if __name__ == '__main__':
             print(f"  score:  {df.iloc[-1]['recovery']:.3f} ({df.iloc[-1]['time']:.2f}s)")
 
             # ---- IKK ----
-            # t6 = time.time()
-            # result_ikk = ikk.run_ikk(M.values, N.values, wordSet, query)
-            # ikk_time = time.time() - t6
-            # acc = utils.accuracy(result_ikk)
-            # df.loc[len(df)] = [i_count, fpr, 'ikk',
-            #                    ikk_time, acc / len(query)]
-            # print(f"  ikk:    {df.iloc[-1]['recovery']:.3f} ({df.iloc[-1]['time']:.2f}s)")
+            t6 = time.time()
+            result_ikk = ikk.run_ikk(M.values, N.values, wordSet, query)
+            ikk_time = time.time() - t6
+            acc = utils.accuracy(result_ikk)
+            df.loc[len(df)] = [i_count, fpr, 'ikk',
+                               ikk_time, acc / len(query)]
+            print(f"  ikk:    {df.iloc[-1]['recovery']:.3f} ({df.iloc[-1]['time']:.2f}s)")
 
             # ---- SAP ----
             t5 = time.time()
