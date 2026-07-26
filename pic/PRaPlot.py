@@ -45,7 +45,13 @@ for patch, color in zip(box['boxes'], colors):
 for item in ['whiskers', 'fliers', 'medians', 'caps']:
     plt.setp(box[item], color='k', linewidth=1.3)
 
-plt.yticks([0, 40, 80, 120, 160], [0, 40, 80, 120, 160], fontsize=16)
+all_vals = [v for sublist in yvalues for v in sublist]
+max_val = max(all_vals)
+step = 10 ** (len(str(int(max_val))) - 1)
+if max_val / step < 2:
+    step //= 2
+yticks = list(range(0, int(max_val) + step, step))
+plt.yticks(yticks, yticks, fontsize=16)
 
 legend_elements = box['boxes'][:len(m)] + [Line2D([0], [0], color='C3', linestyle=':', marker='o')]
 legend_labels = ['$m$={}$\cdot n$'.format(nkw) for nkw in m] + ['existence']
