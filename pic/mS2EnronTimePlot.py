@@ -5,24 +5,13 @@ import matplotlib.pyplot as plt
 from matplotlib.legend import Legend
 from matplotlib.lines import Line2D
 import pandas as pd
-import copy
-import numpy as np
 
-with open("../pic_pkl/mS2Enron.0.pkl", "rb") as f:
+with open("../pic_pkl/mS2Enron.pkl", "rb") as f:
     pkl = pickle.load(f)
-
-pkl1 = pkl[pkl['attack'] != 'ikk']
-pkl2 = pkl[pkl['attack'] == 'ikk']
-pkl2 = pkl2.copy()
-max_value = max(pkl2['time'])
-min_value = min(pkl2['time'])
-for i in pkl2.index:
-    pkl2.loc[i, 'time'] = (pkl2.loc[i]['time'] - min_value) * (140 - min_value) / (max_value - min_value) + min_value
 
 fig, ax1 = plt.subplots(figsize=(6, 4))
 
-pkl3 = pd.concat([pkl1, pkl2])
-sns.lineplot(pkl3, x='m', y='time', hue='attack',
+sns.lineplot(pkl, x='m', y='time', hue='attack',
              hue_order=['score', 'ikk', 'sap', 'ihop', 'ihopM', "midas_1", 'midas', "jigsaw"],
              palette=["C1", "C2", 'C3', 'C4', 'c', 'C6', "C0", "C5"], style="attack", linewidth=3,
              markers=["*", "o", "<", "v", "^", 'H', ">", "d"], markeredgecolor='none', markersize=16, legend=False,
@@ -41,7 +30,19 @@ plt.grid(axis='y', ls='--')
 
 m = [0.25, 0.5, 0.75, 1]
 plt.xticks([0.25, 0.5, 0.75, 1], m, fontsize=16)
-plt.yticks([0, 30, 50, 80, 110, 140], [0, 30, 50, 80, 500, 900], fontsize=16)
+ax1.set_yscale('symlog', linthresh=50)
+ax1.set_ylim(bottom=-5)
+
+max_t = pkl['time'].max()
+log_ticks = []
+v = 50
+while v < max_t:
+    log_ticks.append(v)
+    v = v * 2 if v >= 100 else 100
+log_ticks.append(v)
+
+yticks = [0, 30, 50] + log_ticks
+plt.yticks(yticks, [str(v) for v in yticks], fontsize=16)
 
 ax1.set_ylabel('Running Time (s)', fontsize=20)
 ax1.set_xlabel('Number of queries ($m$)', fontsize=20)
