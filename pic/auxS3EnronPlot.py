@@ -3,11 +3,7 @@
 import seaborn as sns
 import pickle
 import matplotlib.pyplot as plt
-from matplotlib.legend import Legend
 from matplotlib.lines import Line2D
-import pandas as pd
-import copy
-import numpy as np
 
 with open("../pic_pkl/AuxS3Enron.pkl", "rb") as f:
     pkl = pickle.load(f)

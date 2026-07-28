@@ -99,37 +99,62 @@ For scripts such as `clrzPlot.py`, `nTestLimitedTimePlot.py`, and `mTestLimitedT
 
 ### Parameter Studies
 
-#### The number and accuracy of prior queries recovered by PR varies with $\rho$ in Enron (Figure 2)
+#### The number and accuracy of prior queries recovered by PR varies with $\rho$ (Figure 2)
 
 ```sh
-python3 PRTest.py
+# Enron (Figure 2)
+python3 PRTest.py --dataset Enron
 cd pic
-python3 PRaPlot.py
-python3 PRbPlot.py
+python3 PRaPlot.py --dataset Enron
+python3 PRbPlot.py --dataset Enron
+
+# Lucene (Appendix)
+python3 PRTest.py --dataset Lucene
+cd pic
+python3 PRaPlot.py --dataset Lucene
+python3 PRbPlot.py --dataset Lucene
 ```
 
 #### Effect of different parameters on RR accuracy (Figure 3)
 
 ```sh
-python3 RRTest.py
+# Enron (Figure 3)
+python3 RRTest.py --dataset Enron
 cd pic
-python3 RRPlot.py
+python3 RRPlot.py --dataset Enron
+
+# Lucene (Appendix)
+python3 RRTest.py --dataset Lucene
+cd pic
+python3 RRPlot.py --dataset Lucene
 ```
 
 #### Effect of different parameters on CR accuracy (Figure 4)
 
 ```sh
-python3 CRTest.py
+# Enron (Figure 4)
+python3 CRTest.py --dataset Enron
 cd pic
-python3 CRPlot.py
+python3 CRPlot.py --dataset Enron
+
+# Lucene (Appendix)
+python3 CRTest.py --dataset Lucene
+cd pic
+python3 CRPlot.py --dataset Lucene
 ```
 
 #### Effect of different parameters on `IHOP^M` accuracy (Figure 5)
 
 ```sh
-python3 ihopMTest.py
+# Enron (Figure 5)
+python3 ihopMTest.py --dataset Enron
 cd pic
-python3 ihopMPlot.py
+python3 ihopMPlot.py --dataset Enron
+
+# Lucene (Appendix)
+python3 ihopMTest.py --dataset Lucene
+cd pic
+python3 ihopMPlot.py --dataset Lucene
 ```
 
 ### Ablation Studies
@@ -137,17 +162,29 @@ python3 ihopMPlot.py
 #### Impact of co-absence leakage for prior queries in PR (Figure 6)
 
 ```sh
+# S1
 python3 ablationLeakageTest.py --scenarios S1
 cd pic
-python3 ablationLeakagePlot.py
+python3 ablationLeakagePlot.py --scenarios S1
+
+# S2
+python3 ablationLeakageTest.py --scenarios S2
+cd pic
+python3 ablationLeakagePlot.py --scenarios S2
 ```
 
 #### Effect of iterative refinement (Figure 7)
 
 ```sh
-python3 ablationRRTest.py
+# S1
+python3 ablationRRTest.py --scenarios S1
 cd pic
-python3 ablationRRPlot.py
+python3 ablationRRPlot.py --scenarios S1
+
+# S2
+python3 ablationRRTest.py --scenarios S2
+cd pic
+python3 ablationRRPlot.py --scenarios S2
 ```
 
 #### Incremental computation (Figure 8)
@@ -165,12 +202,14 @@ python3 ablationOptimizeNPlot.py
 #### Comparison on the amount of auxiliary files $|\mathsf{D}_{sim}|$ (Figure 9)
 
 ```sh
-python3 auxTest.py --dataset Enron --scenarios S1
-cd pic
-python3 auxS1EnronPlot.py
+# Run for each dataset/scenario, then plot with the matching script
+python3 auxTest.py --dataset Enron --scenarios S1   && cd pic && python3 auxS1EnronPlot.py   && cd ..
+python3 auxTest.py --dataset Enron --scenarios S2   && cd pic && python3 auxS2EnronPlot.py   && cd ..
+python3 auxTest.py --dataset Enron --scenarios S3   && cd pic && python3 auxS3EnronPlot.py   && cd ..
+python3 auxTest.py --dataset Lucene --scenarios S1 && cd pic && python3 auxS1LucenePlot.py && cd ..
+python3 auxTest.py --dataset Lucene --scenarios S2 && cd pic && python3 auxS2LucenePlot.py && cd ..
+python3 auxTest.py --dataset Lucene --scenarios S3 && cd pic && python3 auxS3LucenePlot.py && cd ..
 ```
-
-Run the experiment again for other dataset/scenario pairs as needed, then use the matching plotting script in `pic/`.
 
 #### Comparison on keyword space $n$ (Figure 10)
 
@@ -237,14 +276,20 @@ Common parameter combinations used by the defense experiment:
 
 | Study | Run | Plot |
 | --- | --- | --- |
-| PR sensitivity (Figure 2) | `python3 PRTest.py` | `cd pic && python3 PRaPlot.py && python3 PRbPlot.py` |
-| RR sensitivity (Figure 3) | `python3 RRTest.py` | `cd pic && python3 RRPlot.py` |
-| CR sensitivity (Figure 4) | `python3 CRTest.py` | `cd pic && python3 CRPlot.py` |
-| `IHOP^M` sensitivity (Figure 5) | `python3 ihopMTest.py` | `cd pic && python3 ihopMPlot.py` |
-| Co-absence leakage ablation (Figure 6) | `python3 ablationLeakageTest.py --scenarios S1` | `cd pic && python3 ablationLeakagePlot.py` |
-| Iterative refinement ablation (Figure 7) | `python3 ablationRRTest.py` | `cd pic && python3 ablationRRPlot.py` |
+| PR sensitivity (Figure 2) | `python3 PRTest.py --dataset Enron` | `cd pic && python3 PRaPlot.py --dataset Enron && python3 PRbPlot.py --dataset Enron` |
+| PR sensitivity on Lucene (Appendix) | `python3 PRTest.py --dataset Lucene` | `cd pic && python3 PRaPlot.py --dataset Lucene && python3 PRbPlot.py --dataset Lucene` |
+| RR sensitivity (Figure 3) | `python3 RRTest.py --dataset Enron` | `cd pic && python3 RRPlot.py --dataset Enron` |
+| RR sensitivity on Lucene (Appendix) | `python3 RRTest.py --dataset Lucene` | `cd pic && python3 RRPlot.py --dataset Lucene` |
+| CR sensitivity (Figure 4) | `python3 CRTest.py --dataset Enron` | `cd pic && python3 CRPlot.py --dataset Enron` |
+| CR sensitivity on Lucene (Appendix) | `python3 CRTest.py --dataset Lucene` | `cd pic && python3 CRPlot.py --dataset Lucene` |
+| `IHOP^M` sensitivity (Figure 5) | `python3 ihopMTest.py --dataset Enron` | `cd pic && python3 ihopMPlot.py --dataset Enron` |
+| `IHOP^M` sensitivity on Lucene (Appendix) | `python3 ihopMTest.py --dataset Lucene` | `cd pic && python3 ihopMPlot.py --dataset Lucene` |
+| Co-absence leakage ablation (Figure 6, S1) | `python3 ablationLeakageTest.py --scenarios S1` | `cd pic && python3 ablationLeakagePlot.py --scenarios S1` |
+| Co-absence leakage ablation (Figure 6, S2) | `python3 ablationLeakageTest.py --scenarios S2` | `cd pic && python3 ablationLeakagePlot.py --scenarios S2` |
+| Iterative refinement ablation (Figure 7, S1) | `python3 ablationRRTest.py --scenarios S1` | `cd pic && python3 ablationRRPlot.py --scenarios S1` |
+| Iterative refinement ablation (Figure 7, S2) | `python3 ablationRRTest.py --scenarios S2` | `cd pic && python3 ablationRRPlot.py --scenarios S2` |
 | Incremental computation (Figure 8) | `python3 ablationOptimizeMTest.py` and `python3 ablationOptimizeNTest.py` | `cd pic && python3 ablationOptimizeMPlot.py && python3 ablationOptimizeNPlot.py` |
-| Auxiliary knowledge comparison (Figure 9) | `python3 auxTest.py --dataset Enron --scenarios S1` | Run the matching script in `pic/`, such as `cd pic && python3 auxS1EnronPlot.py` |
+| Auxiliary knowledge comparison (Figure 9) | `python3 auxTest.py --dataset {Enron,Lucene} --scenarios {S1,S2,S3}` | `cd pic && python3 auxS{scenarios}{dataset}Plot.py` (6 combinations) |
 | Keyword-space comparison (Figure 10) | `python3 nTest.py --dataset Enron --scenarios S1` | Run the matching scripts, such as `cd pic && python3 nS1EnronPlot.py && python3 nS1EnronTimePlot.py` |
 | Similar-runtime comparison on `n` (Appendix) | `python3 nTestLimitedTime.py -s S1` | `cd pic && python3 nTestLimitedTimePlot.py` |
 | Similar-runtime comparison on large keyword universes (Figure 11) | `python3 nTestLimitedTimeOnLargeKeyword.py -s S1` | `cd pic && python3 limitedTimeNLargeLucenePlot.py` |
