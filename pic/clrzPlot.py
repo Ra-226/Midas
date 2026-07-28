@@ -6,11 +6,11 @@ import matplotlib.pyplot as plt
 from matplotlib.legend import Legend
 from matplotlib.lines import Line2D
 import pandas as pd
-import copy
-import numpy as np
+import utils
 
-scenarios = "S2"
-dataset = "Enron"
+args = utils.parameter_parse('Enron', 'S1')
+scenarios = args.scenarios
+dataset = args.dataset
 with open(f"../pic_pkl/CLRZ{scenarios}{dataset}.pkl", "rb") as f:
     pkl = pickle.load(f)
 

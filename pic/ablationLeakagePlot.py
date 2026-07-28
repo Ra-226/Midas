@@ -4,10 +4,10 @@ import matplotlib.pyplot as plt
 from matplotlib.legend import Legend
 from matplotlib.lines import Line2D
 import pandas as pd
-import copy
-import numpy as np
+import utils
 
-scenarios = "S2"
+args = utils.parameter_parse(default_scenarios='S2')
+scenarios = args.scenarios
 
 with open(f"../pic_pkl/ablationLeakage{scenarios}Enron.pkl", "rb") as f:
     pkl = pickle.load(f)

@@ -47,4 +47,4 @@ plt.yticks(yticks, [str(v) for v in yticks], fontsize=16)
 ax1.set_ylabel('Running Time (s)', fontsize=20)
 ax1.set_xlabel('Number of queries ($m$)', fontsize=20)
 
-plt.savefig("./pictures/mS2EnronTime.pdf", bbox_inches='tight')
+plt.savefig("./pictures/mS2Enrontime.pdf", bbox_inches='tight')

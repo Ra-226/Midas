@@ -2,8 +2,10 @@ import pickle
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.colors as mcolors
+import utils
 
-scenarios = "S2"
+args = utils.parameter_parse(default_scenarios='S2')
+scenarios = args.scenarios
 word_len = 500
 
 with open(f"../pic_pkl/ablationRR{scenarios}Enron.pkl", "rb") as f:

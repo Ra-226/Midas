@@ -6,8 +6,10 @@ import seaborn as sns
 from matplotlib.lines import Line2D
 from matplotlib.legend import Legend
 
+import utils
 m = 500
-scenarios = "S2"
+args = utils.parameter_parse(default_scenarios='S2')
+scenarios = args.scenarios
 file = f"limited_time_{scenarios}_LuceneLarge_n_{[3000, 5000, 6000]}_m_{m}_count_10"
 
 with open(f"../pic_pkl/{file}.pkl", "rb") as f:
