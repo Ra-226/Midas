@@ -2,6 +2,8 @@ import pickle
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.colors as mcolors
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import utils
 
 args = utils.parameter_parse(default_scenarios='S2')

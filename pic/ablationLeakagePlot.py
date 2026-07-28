@@ -4,6 +4,8 @@ import matplotlib.pyplot as plt
 from matplotlib.legend import Legend
 from matplotlib.lines import Line2D
 import pandas as pd
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import utils
 
 args = utils.parameter_parse(default_scenarios='S2')

@@ -6,6 +6,8 @@ import seaborn as sns
 from matplotlib.lines import Line2D
 from matplotlib.legend import Legend
 
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import utils
 m = 500
 args = utils.parameter_parse(default_scenarios='S2')
