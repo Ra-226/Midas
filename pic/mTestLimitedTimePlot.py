@@ -7,8 +7,13 @@ import pandas as pd
 import copy
 import numpy as np
 
-scenarios = "S1"
-dataset = "Enron"
+import sys, os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+import utils
+
+args = utils.parameter_parse(default_scenarios='S1')
+scenarios = args.scenarios
+dataset = 'Enron'
 
 with open(f"../pic_pkl/m{scenarios}{dataset}LimitedTime.pkl", "rb") as f:
     pkl = pickle.load(f)
