@@ -38,7 +38,7 @@ if __name__ == '__main__':
 
     for i_fpr, fpr in enumerate(FPR_list):
         for i_count in range(count):
-            np.random.seed(i_count)
+            np.random.seed(i_fpr * count + i_count)
             print(f"FPR: {fpr}, iteration: {i_count}...")
 
             wordSet = [keywords[i] for i in
