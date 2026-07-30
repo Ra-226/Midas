@@ -4,8 +4,8 @@ import matplotlib.pyplot as plt
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--dataset', default='Enron', choices=['Enron', 'Lucene'])
-parser.add_argument('--scenarios', default='S3', choices=['S1', 'S2', 'S3'])
+parser.add_argument('-d', '--dataset', default='Enron', choices=['Enron', 'Lucene'])
+parser.add_argument('-s', '--scenarios', default='S3', choices=['S1', 'S2', 'S3'])
 args = parser.parse_args()
 
 with open(f"../pic_pkl/osse{args.scenarios}{args.dataset}.pkl", "rb") as f:

@@ -12,7 +12,7 @@ import numpy as np
 import argparse
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--dataset', default='Enron', choices=['Enron', 'Lucene'])
+parser.add_argument('-d', '--dataset', default='Enron', choices=['Enron', 'Lucene'])
 args = parser.parse_args()
 dataset = args.dataset
 
