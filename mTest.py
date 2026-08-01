@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import pickle
+import random
 import numpy as np
 import pandas as pd
 import time
@@ -37,6 +38,7 @@ if __name__ == '__main__':
     for i_m, v_m in enumerate(m):
         for i_count in range(count):
             np.random.seed(i_m * count + i_count)
+            random.seed(i_m * count + i_count)
             print(f"parameter: {v_m}, iterations: {i_count}...")
             # Generate keyword and query sets based on different scenarios, and remove all 0 columns from the access pattern matrix.
             wordSet = [keywords[i] for i in

@@ -1,4 +1,5 @@
 import pickle
+import random
 import time
 import numpy as np
 import pandas as pd
@@ -12,9 +13,8 @@ if __name__ == '__main__':
     args = utils.parameter_parse('Lucene', 'S2')
     scenarios = args.scenarios
     n = [3000, 5000, 6000]
-    speed_map_Jigsaw = {1000: 12, 3000: 16, 5000: 25, 6000: 25}
-    # speed_map = {1000: 347, 3000 : 160, 5000 : 147}   # for query_len = 300
-    speed_map = {1000: 40, 3000: 28, 5000: 20, 6000: 23}  # for query_len = 500 S1
+    IHOP_PROBE_ITERS = 20
+    JIGSAW_PROBE_REFSPEED = 5
     query_len = 500
     count = 10  # Number of experiments
 
@@ -29,9 +29,13 @@ if __name__ == '__main__':
     keywords_matrix = utils.generate_matrix(pkl[0], pkl[2])
     queries_matrix = utils.generate_matrix(pkl[1], pkl[3])
 
-    cnt = 0
     for i_m, v_m in enumerate(n):
+        per_iter_ihop = None
+        per_iter_ihopM = None
+        C_jig = None
         for i_count in range(count):
+            np.random.seed(i_m * count + i_count)
+            random.seed(i_m * count + i_count)
             print(f"parameter: {v_m}, iterations: {i_count}...")
             word_len = v_m
             # Generate keyword and query sets based on different scenarios, and remove all 0 columns from the access pattern matrix.
@@ -64,6 +68,28 @@ if __name__ == '__main__':
             U = (volumeKeyword - M).T
             V = (volumeToken - N).T
 
+            # Calibrate per-unit cost once per n (using the first iteration's matrices).
+            if i_count == 0:
+                np.random.seed((i_m * count) * 10 + 1)
+                t0 = time.time()
+                ihop.run_ihop(num2, M.values, N.values, wordSet, query, 0.25, IHOP_PROBE_ITERS)
+                per_iter_ihop = (time.time() - t0) / IHOP_PROBE_ITERS
+
+                np.random.seed((i_m * count) * 10 + 2)
+                t0 = time.time()
+                ihopM.run_ihop(num2, M.values, N.values, wordSet, query, 0.25, IHOP_PROBE_ITERS, [])
+                per_iter_ihopM = (time.time() - t0) / IHOP_PROBE_ITERS
+
+                t0 = time.time()
+                probe_attack = Attacker(M.to_numpy(), N.to_numpy(),
+                                        45, 35, JIGSAW_PROBE_REFSPEED, 1, 0.9)
+                probe_attack.attack_step_1()
+                probe_attack.attack_step_2()
+                probe_attack.attack_step_3()
+                C_jig = (time.time() - t0) * JIGSAW_PROBE_REFSPEED
+                print(f"  [calib] per_iter_ihop={per_iter_ihop:.4f}s "
+                      f"per_iter_ihopM={per_iter_ihopM:.4f}s C_jig={C_jig:.3f}")
+
             t1 = time.time()
             prior_queries_and_candidate_lists, R1 = midas.PR(volumeToken, volumeKeyword, vTD, vKD, 20)
             subT = list(prior_queries_and_candidate_lists.keys())
@@ -79,7 +105,8 @@ if __name__ == '__main__':
             df.loc[len(df)] = [i_count, v_m, 'midas', midastime, acc / len(query)]
 
             t8 = time.time()
-            attack = Attacker(M.to_numpy(), N.to_numpy(), 45, 35, speed_map_Jigsaw[v_m], 1, 0.9)
+            refinespeed = max(1.0, C_jig / midastime)
+            attack = Attacker(M.to_numpy(), N.to_numpy(), 45, 35, refinespeed, 1, 0.9)
             attack.attack_step_1()
             attack.attack_step_2()
             result7 = attack.attack_step_3()
@@ -88,18 +115,24 @@ if __name__ == '__main__':
             acc = utils.accuracy(res_Jigsaw)
             df.loc[len(df)] = [i_count, v_m, 'jigsaw', jigsawtime, acc / len(query)]
 
+            np.random.seed((i_m * count + i_count) * 10 + 1)
             t6 = time.time()
-            result5 = ihop.run_ihop(num2, M.values, N.values, wordSet, query, 0.25, speed_map[v_m])
+            n_iters_ihop = max(10, int(round(midastime / per_iter_ihop)))
+            result5 = ihop.run_ihop(num2, M.values, N.values, wordSet, query, 0.25, n_iters_ihop)
             ihoptime = time.time() - t6
             acc = utils.accuracy(result5)
             df.loc[len(df)] = [i_count, v_m, 'ihop', ihoptime, acc / len(query)]
 
+            np.random.seed((i_m * count + i_count) * 10 + 2)
             t7 = time.time()
-            result6 = ihopM.run_ihop(num2, M.values, N.values, wordSet, query, 0.25, speed_map[v_m], R2[:5])
+            n_iters_ihopM = max(10, int(round(midastime / per_iter_ihopM)))
+            result6 = ihopM.run_ihop(num2, M.values, N.values, wordSet, query, 0.25, n_iters_ihopM, R2[:5])
             ihopMtime = time.time() - t7 + t2 - t1
             acc = utils.accuracy(result6)
             df.loc[len(df)] = [i_count, v_m, 'ihopM', ihopMtime, acc / len(query)]
-
+            print(f"  times: midas={midastime:.2f}s jigsaw={jigsawtime:.2f}s "
+                  f"ihop={ihoptime:.2f}s ihopM={ihopMtime:.2f}s "
+                  f"(refinespeed={refinespeed:.1f}, n_iters={n_iters_ihop}/{n_iters_ihopM})")
             print(df.iloc[-4:])
 
     with open(f"./pic_pkl/limited_time_{scenarios}_LuceneLarge_n_{[i for i in n]}_m_{query_len}_count_{count}.pkl",
