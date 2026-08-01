@@ -126,7 +126,7 @@ if __name__ == '__main__':
 
             np.random.seed((i_m * count + i_count) * 10 + 2)
             t7 = time.time()
-            n_iters_ihopM = max(10, int(round(midastime / per_iter_ihopM)))
+            n_iters_ihopM = max(10, int(round((midastime - (t2 - t1)) / per_iter_ihopM)))
             result6 = ihopM.run_ihop(num2, M.values, N.values, wordSet, query, 0.25, n_iters_ihopM, R2[:5])
             ihopMtime = time.time() - t7 + t2 - t1
             acc = utils.accuracy(result6)
