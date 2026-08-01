@@ -3,14 +3,10 @@ import numpy as np
 import pandas as pd
 import time
 import utils
-import attacks.sap as sap
 import attacks.ihop as ihop
-import attacks.ikk as ikk
 import attacks.midas_incremental_optimization as midas
 import attacks.ihopM as ihopM
-import attacks.score as score
 from attacks.jigsaw import Attacker
-import argparse
 
 if __name__ == '__main__':
     args = utils.parameter_parse('Enron', 'S2')
@@ -38,6 +34,7 @@ if __name__ == '__main__':
 
     for i_m, v_m in enumerate(n):
         for i_count in range(count):
+            np.random.seed(i_m * count + i_count)
             print(f"parameter: {v_m}, iterations: {i_count}...")
             word_len = v_m
             # Generate keyword and query sets based on different scenarios, and remove all 0 columns from the access pattern matrix.
