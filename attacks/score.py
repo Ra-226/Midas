@@ -37,7 +37,7 @@ def scorePlus(M, N, known, RefSpeed):
     finalResult = []
     unKnownQ = list(N.index)
     while (len(unKnownQ) != 0):
-        unKnownQ = list(set(N.index) - set(KnownQN))
+        unKnownQ = sorted(set(N.index) - set(KnownQN))
         tempResult = []
         for i in unKnownQ:
             try:

@@ -22,7 +22,7 @@ def PR(volumeToken, volumeKeyword, vTD, vKD, factor):
             prior_queries_and_candidates[queries[i]] = candidates
     # Extract prior queries and keywords from the candidate set.
     prior_queries = list(prior_queries_and_candidates.keys())
-    candidates_keyword = list({keyword for v in prior_queries_and_candidates.values() for keyword in v})
+    candidates_keyword = sorted({keyword for v in prior_queries_and_candidates.values() for keyword in v})
     sub_prior_queries_volume = volumeToken[prior_queries]
     sub_candidates_keyword_volume = volumeKeyword[candidates_keyword]
     # Perform preliminary recovery on prior queries.
@@ -53,7 +53,7 @@ def RR(M, N, U, V, eta_R1, RefSpeed, sigma):
     Hq = pd.concat([N[prior_queries], V[prior_queries], V.loc[prior_queries].T], axis=1)
     # Use multidimensional tensors to recover the remaining prior queries.
     while (len(unKnownQ) != 0 and len(KnownQ) <= sigma):
-        unKnownQ = list(set(N.index) - set(recovered_queries))  # Exclude recovered prior queries.
+        unKnownQ = sorted(set(N.index) - set(recovered_queries))  # Exclude recovered prior queries.
         tempResult = []
         for query in unKnownQ:
             # Calculate the Euclidean distance between the query row vector
@@ -110,7 +110,7 @@ def scorePlus(M, N, known, RefSpeed):
     Mk = M[keyword_for_prior_queries]
     Nk = N[prior_queries]
     while (len(unKnownQ) != 0):
-        unKnownQ = list(set(N.index) - set(recovered_queries))
+        unKnownQ = sorted(set(N.index) - set(recovered_queries))
         tempResult = []
         for query in unKnownQ:
             # Calculate the Euclidean distance between the query row vector
