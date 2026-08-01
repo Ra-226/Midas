@@ -59,7 +59,7 @@ The experiments use two datasets, `Enron` and `Lucene`, and three query-generati
 | `SAP` | $\alpha = 0$ |
 | `IHOP` | `pfree=0.25`, `niters=1000` |
 | `Jigsaw` | $\alpha = 1$, $\beta = 0.9$, `BaseRec=45`, `ConfRec=35`, `RefSpeed=10` |
-| `Midas` / `midas_incremental_optimization` | $\rho = 20$, $\sigma = 55$, $\eta = 1$, $\gamma = 4$, $\mu = 25$, $\delta = 10$ |
+| `Midas` | $\rho = 20$, $\sigma = 55$, $\eta = 1$, $\gamma = 4$, $\mu = 25$, $\delta = 10$ |
 | `IHOP^M` | $\theta = 5$, `pfree=0.25`, `niters=500` |
 | `CLRZ` defense | `tpr=0.999`, $\mathrm{fpr} \in [0.01, 0.02, 0.05]$ |
 
