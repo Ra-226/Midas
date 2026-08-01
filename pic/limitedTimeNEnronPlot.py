@@ -1,13 +1,18 @@
 import pickle
+import sys, os
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
 from matplotlib.lines import Line2D
 from matplotlib.legend import Legend
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+import utils
 
+args = utils.parameter_parse('Enron', 'S1')
+scenarios = args.scenarios
+dataset = args.dataset
 m = 500
-scenarios = "S2"
 file = f"n{scenarios}EnronLimitedTime"
 with open(f"../pic_pkl/{file}.pkl", "rb") as f:
     pkl = pickle.load(f)
