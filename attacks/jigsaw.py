@@ -60,6 +60,8 @@ class Attacker:
             paired_td = list(self.tdid_2_kwsid.keys())
             paired_kw = [self.tdid_2_kwsid[i] for i in paired_td]
             unpaired_kw = list(set([i for i in range(len(self.sim_M))]) - set(paired_kw))
+            if len(unpaired_kw) < 2:
+                break
             un_td_list = list(self.unrec_td_set)
 
             M = self.real_M[un_td_list][:, paired_td]
