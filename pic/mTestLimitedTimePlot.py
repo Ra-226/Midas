@@ -11,9 +11,9 @@ import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import utils
 
-args = utils.parameter_parse(default_scenarios='S1')
+args = utils.parameter_parse('Enron', 'S1')
 scenarios = args.scenarios
-dataset = 'Enron'
+dataset = args.dataset
 
 with open(f"../pic_pkl/m{scenarios}{dataset}LimitedTime.pkl", "rb") as f:
     pkl = pickle.load(f)
