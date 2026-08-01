@@ -9,14 +9,13 @@ from matplotlib.legend import Legend
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import utils
-args = utils.parameter_parse(default_scenarios='S2')
+args = utils.parameter_parse('Enron', 'S1')
 scenarios = args.scenarios
+dataset = args.dataset
 m = 500
-file = f"m{scenarios}EnronLimitedTime"
+file = f"m{scenarios}{dataset}LimitedTime"
 with open(f"../pic_pkl/{file}.pkl", "rb") as f:
-    pkl = pickle.load(f)
-
-df = pkl[pkl['attack'] != 'score']
+    df = pickle.load(f)
 
 order = sorted(df['m'].unique())
 attacks = ['midas', 'jigsaw', 'ihop', 'ihopM']
@@ -111,5 +110,5 @@ ax1.margins(x=0)
 ax1.set_xlim(-0.5, len(order) - 0.5)
 ax2.margins(x=0)
 
-plt.savefig(f"./pictures/limited_time_{scenarios}_Enron_n_500_m_[0.25, 0.5, 0.75, 1].pdf", bbox_inches='tight')
+plt.savefig(f"./pictures/limited_time_{scenarios}_{dataset}_n_500_m_[0.25, 0.5, 0.75, 1].pdf", bbox_inches='tight')
 plt.show()
