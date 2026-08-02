@@ -5,12 +5,14 @@ import pandas as pd
 import seaborn as sns
 from matplotlib.lines import Line2D
 from matplotlib.legend import Legend
-
+from matplotlib.legend_handler import HandlerTuple
 import sys, os
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import utils
+
 m = 500
-args = utils.parameter_parse(default_scenarios='S2')
+args = utils.parameter_parse(default_scenarios='S1')
 scenarios = args.scenarios
 file = f"limited_time_{scenarios}_LuceneLarge_n_{[3000, 5000, 6000]}_m_{m}_count_10"
 
@@ -23,13 +25,12 @@ order = sorted(df['n'].unique())
 attacks = ['midas', 'jigsaw', 'ihop', 'ihopM']
 attackexample = ['Midas', 'Jigsaw', 'IHOP', 'IHOP$^M$']
 
-# common_colors_acc = ['C0', 'C5', 'C4', 'c']
-common_colors_acc = ['C0', 'C2', 'C3', 'C1']
+common_colors_acc = ['C0', 'C5', 'C2', 'C1']
 
 common_colors_time = sns.color_palette("Set2")
 palette = dict(zip(attacks, common_colors_acc))
 palette2 = dict(zip(attacks, common_colors_time))
-markers = ['o', '<', 'd', 's']
+markers = ['o', '<', 'H', '>']
 marker_map = dict(zip(attacks, markers))
 
 group_width = 0.8
@@ -45,7 +46,7 @@ for item in order:
 
 n_to_x = {n_val: i for i, n_val in enumerate(int_order)}
 
-fig, ax1 = plt.subplots(figsize=(10, 5))
+fig, ax1 = plt.subplots(figsize=(6, 8))
 
 sns.boxplot(
     data=df, x='n', y='recovery',
@@ -66,36 +67,21 @@ for atk in attacks:
     # ax2.scatter(x_pos, sub['time'], s=144,
     #          color=palette2[atk], marker=marker_map[atk],
     #          edgecolors='black', zorder=3)
-    ax2.scatter(x_pos, sub['time'], s=144,
+    ax2.scatter(x_pos, sub['time'], s=80,
                 color='red', marker=marker_map[atk],
-                edgecolors='black', zorder=3)
+                zorder=3)
 ax2.set_ylabel('Running Time (s)', fontsize=22, color='red')
 
 handles_box, labels_box = ax1.get_legend_handles_labels()
-ax1.legend(handles_box, ['Midas', 'Jigsaw', 'IHOP', 'IHOP$^M$'],
-           loc='upper center', bbox_to_anchor=(0.5, 1.18),
-           ncol=len(attacks), frameon=True, framealpha=1, fontsize=20,
-           columnspacing=2)
-
-# scatter_handles = [Line2D([0], [0], marker=marker_map[atk], color='w',
-#                           markerfacecolor=palette2[atk], markersize=12,
-#                           markeredgecolor='black', label=atk) for atk in attacks]
-scatter_handles = [Line2D([0], [0], marker=marker_map[atk], color='w',
-                           markerfacecolor='red', markersize=12,
-                           markeredgecolor='black', label=atk) for atk in attacks]
-
-ax2.legend(scatter_handles, ['Midas', 'Jigsaw', 'IHOP', 'IHOP$^M$'], title='Time', title_fontsize=18,
-           loc='center left', ncol=2,
-           frameon=True,
-           framealpha=0.5,
-           edgecolor='black',
-           fontsize=18,
-           columnspacing=.8,
-           handletextpad=0.3,
-           handlelength=1.5,
-           borderaxespad=0.5,
-           labelspacing=0.8
-           )
+red_handles = [Line2D([0], [0], marker=marker_map[atk], color='red',
+                      linestyle='None', markersize=7, label=atk) for atk in attacks]
+combined_handles = list(zip(handles_box, red_handles))
+ax1.legend(combined_handles, ['Midas', 'Jigsaw', 'IHOP', 'IHOP$^M$'],
+           loc='upper center', bbox_to_anchor=(0.523, 0.88), bbox_transform=fig.transFigure,
+           ncol=2, frameon=True, framealpha=1, fontsize=16,
+           columnspacing=3,
+           handlelength=5.0,
+           handler_map={tuple: HandlerTuple(ndivide=2)})
 
 ax1.set_xticks(range(len(order)))
 ax1.set_xticklabels([str(v) for v in int_order], fontsize=20)
@@ -111,7 +97,7 @@ ax1.set_xlabel('Number of keywords(n)', fontsize=22)
 
 ax2.grid(False)
 ax1.grid(True, axis='y', linestyle=':', alpha=0.5)
-plt.subplots_adjust(left=0.1, right=0.95)
+plt.subplots_adjust(left=0.1, right=0.95, top=0.75)
 ax1.margins(x=0)
 
 ax1.set_xlim(-0.5, len(order) - 0.5)
