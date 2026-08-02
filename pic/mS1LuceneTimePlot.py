@@ -14,7 +14,7 @@ fig, ax1 = plt.subplots(figsize=(6, 4))
 sns.lineplot(pkl, x='m', y='time', hue='attack',
              hue_order=['score', 'ikk', 'sap', 'ihop', 'ihopM', "midas_1", 'midas', "jigsaw"],
              palette=["C1", "C2", 'C3', 'C4', 'c', 'C6', "C0", "C5"], style="attack", linewidth=3,
-             markers=["*", "o", "<", "v", "^", 'H', ">", "d"], markeredgecolor='none', markersize=16, legend=False,
+             markers=["*", "o", "<", "v", "d", "^", 'H', ">"], markeredgecolor='none', markersize=16, legend=False,
              errorbar=('ci', 95))
 
 ax1.lines[0].set_linestyle("-")
