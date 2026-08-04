@@ -30,7 +30,7 @@ common_colors_acc = ['C0', 'C5', 'C2', 'C1']
 common_colors_time = sns.color_palette("Set2")
 palette = dict(zip(attacks, common_colors_acc))
 palette2 = dict(zip(attacks, common_colors_time))
-markers = ['o', '<', 'H', '>']
+markers = ['o', '<', 's', '>']
 marker_map = dict(zip(attacks, markers))
 
 group_width = 0.8
