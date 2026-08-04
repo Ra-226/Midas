@@ -22,8 +22,9 @@ if __name__ == '__main__':
     n = [500, 1000, 1500, 2000]
     count = 10  # Number of experiments
 
+    file = "Enron_3000" if dataset == "Enron" else "Lucene_3000"
     df = pd.DataFrame(columns=["count", 'n', "attack", "time", "recovery"])
-    with open(f'./Datasets/Enron_3000.pkl', 'rb') as f:
+    with open(f'./Datasets/{file}.pkl', 'rb') as f:
         pkl = pickle.load(f)
 
     # Extract the number of non-indexed and indexed documents and generate an access pattern matrix.
