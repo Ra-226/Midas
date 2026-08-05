@@ -216,15 +216,15 @@ python3 auxTest.py --dataset Lucene --scenarios S3 && cd pic && python3 auxPlot.
 ```sh
 # Enron S1
 python3 nTest.py --dataset Enron --scenarios S1
-cd pic && python3 nS1EnronPlot.py && python3 nS1EnronTimePlot.py && cd ..
+cd pic && python3 nPlot.py -d Enron -s S1 && python3 nTimePlot.py -d Enron -s S1 && cd ..
 
 # Enron S2
 python3 nTest.py --dataset Enron --scenarios S2
-cd pic && python3 nS2EnronPlot.py && python3 nS2EnronTimePlot.py && cd ..
+cd pic && python3 nPlot.py -d Enron -s S2 && python3 nTimePlot.py -d Enron -s S2 && cd ..
 
 # Enron S3
 python3 nTest.py --dataset Enron --scenarios S3
-cd pic && python3 nS3EnronPlot.py && python3 nS3EnronTimePlot.py && cd ..
+cd pic && python3 nPlot.py -d Enron -s S3 && python3 nTimePlot.py -d Enron -s S3 && cd ..
 ```
 
 #### Comparison under similar runtime on $n$ (Appendix)
@@ -321,7 +321,7 @@ python3 osseTest.py -d Lucene -s S3 && cd pic && python3 ossePlot.py -d Lucene -
 | Iterative refinement ablation (Figure 7, S2) | `python3 ablationRRTest.py --scenarios S2` | `cd pic && python3 ablationRRPlot.py --scenarios S2` |
 | Incremental computation (Figure 8) | `python3 ablationOptimizeMTest.py` and `python3 ablationOptimizeNTest.py` | `cd pic && python3 ablationOptimizeMPlot.py && python3 ablationOptimizeNPlot.py` |
 | Auxiliary knowledge comparison (Figure 9) | `python3 auxTest.py --dataset {Enron,Lucene} --scenarios {S1,S2,S3}` | `cd pic && python3 auxPlot.py -d {dataset} -s {scenarios}` (6 combinations) |
-| Keyword-space comparison (Figure 10) | `python3 nTest.py --dataset Enron --scenarios {S1,S2,S3}` | `cd pic && python3 nS{scenarios}EnronPlot.py && python3 nS{scenarios}EnronTimePlot.py` |
+| Keyword-space comparison (Figure 10) | `python3 nTest.py --dataset Enron --scenarios {S1,S2,S3}` | `cd pic && python3 nPlot.py -d Enron -s {scenarios} && python3 nTimePlot.py -d Enron -s {scenarios}` |
 | Similar-runtime comparison on `n` (Appendix) | `python3 nTestLimitedTime.py -s S1` | `cd pic && python3 nTestLimitedTimePlot.py` |
 | Similar-runtime comparison on large keyword universes (Figure 11) | `python3 nTestLimitedTimeOnLargeKeyword.py -s {S1,S2}` | `cd pic && python3 limitedTimeNLargeLucenePlot.py -s {S1,S2}` |
 | Query-count comparison (Figure 12) | `python3 mTest.py --dataset Enron --scenarios {S1,S2,S3}` | `cd pic && python3 mPlot.py -d Enron -s {scenarios} && python3 mTimePlot.py -d Enron -s {scenarios}` |
