@@ -203,12 +203,12 @@ python3 ablationOptimizeNPlot.py
 
 ```sh
 # Run for each dataset/scenario, then plot with the matching script
-python3 auxTest.py --dataset Enron --scenarios S1   && cd pic && python3 auxS1EnronPlot.py   && cd ..
-python3 auxTest.py --dataset Enron --scenarios S2   && cd pic && python3 auxS2EnronPlot.py   && cd ..
-python3 auxTest.py --dataset Enron --scenarios S3   && cd pic && python3 auxS3EnronPlot.py   && cd ..
-python3 auxTest.py --dataset Lucene --scenarios S1 && cd pic && python3 auxS1LucenePlot.py && cd ..
-python3 auxTest.py --dataset Lucene --scenarios S2 && cd pic && python3 auxS2LucenePlot.py && cd ..
-python3 auxTest.py --dataset Lucene --scenarios S3 && cd pic && python3 auxS3LucenePlot.py && cd ..
+python3 auxTest.py --dataset Enron --scenarios S1   && cd pic && python3 auxPlot.py -d Enron -s S1   && cd ..
+python3 auxTest.py --dataset Enron --scenarios S2   && cd pic && python3 auxPlot.py -d Enron -s S2   && cd ..
+python3 auxTest.py --dataset Enron --scenarios S3   && cd pic && python3 auxPlot.py -d Enron -s S3   && cd ..
+python3 auxTest.py --dataset Lucene --scenarios S1 && cd pic && python3 auxPlot.py -d Lucene -s S1 && cd ..
+python3 auxTest.py --dataset Lucene --scenarios S2 && cd pic && python3 auxPlot.py -d Lucene -s S2 && cd ..
+python3 auxTest.py --dataset Lucene --scenarios S3 && cd pic && python3 auxPlot.py -d Lucene -s S3 && cd ..
 ```
 
 #### Comparison on keyword space $n$ (Figure 10)
@@ -320,7 +320,7 @@ python3 osseTest.py -d Lucene -s S3 && cd pic && python3 ossePlot.py -d Lucene -
 | Iterative refinement ablation (Figure 7, S1) | `python3 ablationRRTest.py --scenarios S1` | `cd pic && python3 ablationRRPlot.py --scenarios S1` |
 | Iterative refinement ablation (Figure 7, S2) | `python3 ablationRRTest.py --scenarios S2` | `cd pic && python3 ablationRRPlot.py --scenarios S2` |
 | Incremental computation (Figure 8) | `python3 ablationOptimizeMTest.py` and `python3 ablationOptimizeNTest.py` | `cd pic && python3 ablationOptimizeMPlot.py && python3 ablationOptimizeNPlot.py` |
-| Auxiliary knowledge comparison (Figure 9) | `python3 auxTest.py --dataset {Enron,Lucene} --scenarios {S1,S2,S3}` | `cd pic && python3 auxS{scenarios}{dataset}Plot.py` (6 combinations) |
+| Auxiliary knowledge comparison (Figure 9) | `python3 auxTest.py --dataset {Enron,Lucene} --scenarios {S1,S2,S3}` | `cd pic && python3 auxPlot.py -d {dataset} -s {scenarios}` (6 combinations) |
 | Keyword-space comparison (Figure 10) | `python3 nTest.py --dataset Enron --scenarios {S1,S2,S3}` | `cd pic && python3 nS{scenarios}EnronPlot.py && python3 nS{scenarios}EnronTimePlot.py` |
 | Similar-runtime comparison on `n` (Appendix) | `python3 nTestLimitedTime.py -s S1` | `cd pic && python3 nTestLimitedTimePlot.py` |
 | Similar-runtime comparison on large keyword universes (Figure 11) | `python3 nTestLimitedTimeOnLargeKeyword.py -s {S1,S2}` | `cd pic && python3 limitedTimeNLargeLucenePlot.py -s {S1,S2}` |
