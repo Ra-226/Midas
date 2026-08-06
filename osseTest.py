@@ -19,8 +19,6 @@ if __name__ == '__main__':
 
     TPR = 0.9999
     FPR_list = [0.01, 0.02, 0.05, 0]
-    # FPR_list = [0.005, 0.01, 0.02, 0]
-    # FPR_list = [0.001, 0.002, 0.005, 0]
     queryRate = 0.5
     count = 10
     word_len = 500
