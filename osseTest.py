@@ -154,7 +154,7 @@ if __name__ == '__main__':
             # ---- IHOP ----
             t7 = time.time()
             result_ihop = ihop.run_ihop(
-                num2, M.values, N.values, wordSet, query, 0.25, 200)
+                num2, M.values, N.values, wordSet, query, 0.25, 1000)
             ihop_time = time.time() - t7
             acc = utils.accuracy(result_ihop)
             df.loc[len(df)] = [i_count, fpr, 'ihop',
@@ -164,7 +164,7 @@ if __name__ == '__main__':
             # ---- IHOP^M ----
             t8 = time.time()
             result_ihopm = ihopM.run_ihop(
-                num2, M.values, N.values, wordSet, query, 0.25, 100, R2[:5])
+                num2, M.values, N.values, wordSet, query, 0.25, 500, R2[:5])
             ihopM_time = time.time() - t8
             acc = utils.accuracy(result_ihopm)
             df.loc[len(df)] = [i_count, fpr, 'ihopM',
