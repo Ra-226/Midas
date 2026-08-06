@@ -3,6 +3,8 @@
 import seaborn as sns
 import pickle
 import matplotlib.pyplot as plt
+from matplotlib.collections import PolyCollection
+import matplotlib.colors as mcolors
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import utils
@@ -13,18 +15,30 @@ dataset, scenario = args.dataset, args.scenarios
 with open(f"../pic_pkl/m{scenario}{dataset}.pkl", "rb") as f:
     pkl = pickle.load(f)
 
+ATTACK_ORDER = ['score', 'ikk', 'sap', 'ihop', 'ihopM', "midas_1", 'midas', "jigsaw"]
+
 fig, ax1 = plt.subplots(figsize=(6, 4))
 
 sns.lineplot(pkl, x='m', y='recovery', hue='attack',
-             hue_order=['score', 'ikk', 'sap', 'ihop', 'ihopM', "midas_1", 'midas', "jigsaw"],
-             palette=["C1", "C2", 'C3', 'C4', 'c', 'C6', "C0", "C5"], style="attack", linewidth=3,
-             markers=["*", 'o', "<", 'v', 'd', '^', 'H', ">"], markeredgecolor='none', markersize=16,
+             hue_order=ATTACK_ORDER,
+             style_order=ATTACK_ORDER,
+             palette=["C4", "C6", 'c', 'C2', 'C1', 'C3', "C0", "C5"], style="attack", linewidth=3,
+             markers=["v", 'd', "^", 'H', ">", "*", 'o', "<"], markeredgecolor='none', markersize=16,
              legend=False,
              errorbar=('ci', 95))
 
-for i in [0, 1, 2, 3, 4, 6, 7]:
-    ax1.lines[i].set_linestyle("-")
-ax1.lines[5].set_linestyle("--")
+for col in ax1.collections:
+    if isinstance(col, PolyCollection):
+        fc = mcolors.to_rgba(col.get_facecolor()[0])
+        edge = tuple(0.7 * fc[i] for i in range(3)) + (1.0,)
+        edge = sns.utils.set_hls_values(fc, l=0.45)
+        col.set_edgecolor(edge + (0.35,))
+        col.set_linewidth(0.7)
+        col.set_facecolor(mcolors.to_rgba(col.get_facecolor()[0], 0.15))
+        col.set_alpha(None)
+
+for i, atk in enumerate(ATTACK_ORDER):
+    ax1.lines[i].set_linestyle("--" if atk == "midas_1" else "-")
 
 plt.grid(False)
 plt.grid(axis='y', ls='--')
