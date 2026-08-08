@@ -47,7 +47,7 @@ for item in ['whiskers', 'fliers', 'medians', 'caps']:
 
 plt.yticks([0, 0.25, 0.5, 0.75, 1], [0, 0.25, 0.5, 0.75, 1], fontsize=16)
 legend_elements = box['boxes'][:len(m)] + [Line2D([0], [0], color='C3', linestyle=':', marker='o')]
-legend_labels = ['$m$={}$\cdot n$'.format(nkw) for nkw in m] + ['Top 5 accuracy']
+legend_labels = ['$m$={}$n$'.format(nkw) for nkw in m] + ['Top 5 accuracy']
 legend1 = Legend(ax1, legend_elements, legend_labels, frameon=True,
                  ncol=2, loc='lower center', bbox_to_anchor=(0.5, 0.98),
                  fontsize=16, markerscale=2)

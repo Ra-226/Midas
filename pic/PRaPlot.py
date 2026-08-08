@@ -54,7 +54,7 @@ yticks = list(range(0, int(max_val) + step, step))
 plt.yticks(yticks, yticks, fontsize=16)
 
 legend_elements = box['boxes'][:len(m)] + [Line2D([0], [0], color='C3', linestyle=':', marker='o')]
-legend_labels = ['$m$={}$\cdot n$'.format(nkw) for nkw in m] + ['existence']
+legend_labels = ['$m$={}$n$'.format(nkw) for nkw in m] + ['existence']
 legend1 = Legend(ax1, legend_elements, legend_labels, frameon=True,
                  ncol=2, loc='lower center', bbox_to_anchor=(0.5, 0.98),
                  fontsize=16, markerscale=2)
