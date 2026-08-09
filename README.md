@@ -262,15 +262,15 @@ cd pic && python3 mPlot.py -d Enron -s S3 && python3 mTimePlot.py -d Enron -s S3
 ```sh
 # Enron
 python3 mTestLimitedTime.py -d Enron -s S1
-cd pic && python3 limitedTimeMEnronPlot.py -d Enron -s S1 && cd ..
+cd pic && python3 limitedTimeMPlot.py -d Enron -s S1 && cd ..
 python3 mTestLimitedTime.py -d Enron -s S2
-cd pic && python3 limitedTimeMEnronPlot.py -d Enron -s S2 && cd ..
+cd pic && python3 limitedTimeMPlot.py -d Enron -s S2 && cd ..
 
 # Lucene
 python3 mTestLimitedTime.py -d Lucene -s S1
-cd pic && python3 limitedTimeMEnronPlot.py -d Lucene -s S1 && cd ..
+cd pic && python3 limitedTimeMPlot.py -d Lucene -s S1 && cd ..
 python3 mTestLimitedTime.py -d Lucene -s S2
-cd pic && python3 limitedTimeMEnronPlot.py -d Lucene -s S2 && cd ..
+cd pic && python3 limitedTimeMPlot.py -d Lucene -s S2 && cd ..
 ```
 
 #### Attack against CLRZ defense (Figure 14)
