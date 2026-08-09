@@ -48,6 +48,11 @@ if __name__ == '__main__':
             print(f"parameter: {v_m}, iterations: {i_count}...")
             word_len = v_m
             # Generate keyword and query sets based on different scenarios, and remove all 0 columns from the access pattern matrix.
+            # S1 (random universe) consumes one np.random.permutation to build wordSet, while
+            # S2 (top-n) consumes none. So even when n equals the universe size (e.g. n=6000
+            # for Lucene, same keyword set), the two scenarios draw their observed queries
+            # from different points of the random stream, i.e. different batches, and their
+            # results match only statistically.
             wordSet = [keywords[i] for i in
                        np.random.permutation(len(keywords))[:word_len]] if scenarios == "S1" else keywords[:word_len]
             wordAccess = keywords_matrix.loc[wordSet]
