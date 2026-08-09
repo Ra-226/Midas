@@ -19,7 +19,7 @@ with open(f"../pic_pkl/n{scenario}{dataset}.pkl", "rb") as f:
 
 ATTACK_ORDER = ['score', 'ikk', 'sap', 'ihop', 'ihopM', "midas_1", 'midas', "jigsaw"]
 
-fig, ax1 = plt.subplots(figsize=(6, 4))
+fig, ax1 = plt.subplots(figsize=(6, 5))
 
 sns.lineplot(pkl, x='n', y='time', hue='attack',
              hue_order=ATTACK_ORDER,
@@ -52,18 +52,18 @@ plt.yticks(yy, yy, fontsize=16)
 ax1.set_ylabel('Running Time (s)', fontsize=20)
 ax1.set_xlabel('Number of keywords ($n$)', fontsize=20)
 
-# legend_elements = [Line2D([0], [0], color='C0', linestyle='-', marker='o'),
-#                    Line2D([0], [0], color='C4', linestyle='-', marker='v'),
-#                    Line2D([0], [0], color='C6', linestyle='-', marker='d'),
-#                    Line2D([0], [0], color='c', linestyle='-', marker='^'),
-#                    Line2D([0], [0], color='C2', linestyle='-', marker='H'),
-#                    Line2D([0], [0], color='C1', linestyle='-', marker='>'),
-#                    Line2D([0], [0], color='C5', linestyle='-', marker='<'),
-#                    Line2D([0], [0], color='C3', linestyle='--', marker='*')]
-# legend_labels = ['Midas', 'Score', 'IKK', 'SAP', 'IHOP', 'IHOP$^M$', "Jigsaw", "Midas $\\gamma=1$"]
-# legend2 = Legend(ax1, legend_elements, legend_labels, ncol=2, loc='upper left',
-#                  fontsize=12, markerscale=2)
-# ax1.add_artist(legend2)
+legend_elements = [Line2D([0], [0], color='C0', linestyle='-', marker='o'),
+                   Line2D([0], [0], color='C4', linestyle='-', marker='v'),
+                   Line2D([0], [0], color='C6', linestyle='-', marker='d'),
+                   Line2D([0], [0], color='c', linestyle='-', marker='^'),
+                   Line2D([0], [0], color='C2', linestyle='-', marker='H'),
+                   Line2D([0], [0], color='C1', linestyle='-', marker='>'),
+                   Line2D([0], [0], color='C5', linestyle='-', marker='<'),
+                   Line2D([0], [0], color='C3', linestyle='--', marker='*')]
+legend_labels = ['Midas', 'Score', 'IKK', 'SAP', 'IHOP', 'IHOP$^M$', "Jigsaw", "Midas $\\gamma=1$"]
+legend2 = Legend(ax1, legend_elements, legend_labels, ncol=2, loc='upper left',
+                 fontsize=12, markerscale=2)
+ax1.add_artist(legend2)
 
 plt.savefig(f"./pictures/n{scenario}{dataset}Time.pdf", bbox_inches='tight')
 plt.show()
