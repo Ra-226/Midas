@@ -318,7 +318,7 @@ python3 osseTest.py -d Lucene -s S3 && cd pic && python3 ossePlot.py -d Lucene -
 | Keyword-space comparison (Figure 10) | `python3 nTest.py --dataset Enron --scenarios {S1,S2,S3}` | `cd pic && python3 nPlot.py -d Enron -s {scenarios} && python3 nTimePlot.py -d Enron -s {scenarios}` |
 | Similar-runtime comparison on `n` (Figure 11) | `python3 nTestLimitedTime.py -d {Enron,Lucene} -s {S1,S2}` | `cd pic && python3 limitedTimeNPlot.py -d {Enron,Lucene} -s {S1,S2}` |
 | Query-count comparison (Figure 12) | `python3 mTest.py --dataset Enron --scenarios {S1,S2,S3}` | `cd pic && python3 mPlot.py -d Enron -s {scenarios} && python3 mTimePlot.py -d Enron -s {scenarios}` |
-| Similar-runtime comparison on `m` (Figure 13) | `python3 mTestLimitedTime.py -d {Enron,Lucene} -s {S1,S2}` | `cd pic && python3 limitedTimeMEnronPlot.py -d {Enron,Lucene} -s {S1,S2}` |
+| Similar-runtime comparison on `m` (Figure 13) | `python3 mTestLimitedTime.py -d {Enron,Lucene} -s {S1,S2}` | `cd pic && python3 limitedTimeMPlot.py -d {Enron,Lucene} -s {S1,S2}` |
 | Attack against CLRZ defense (Figure 14) | `python3 clrzTest.py -d {Enron,Lucene} -s {S1,S2,S3}` | `cd pic && python3 clrzPlot.py -d {dataset} -s {scenarios}` (6 combinations) |
 | Attack against OSSE defense (Figure 15) | `python3 osseTest.py -d {Enron,Lucene} -s {S1,S2,S3}` | `cd pic && python3 ossePlot.py -d {dataset} -s {scenarios}` (6 combinations) |
 
