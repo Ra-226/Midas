@@ -5,6 +5,8 @@ import pickle
 import matplotlib.pyplot as plt
 from matplotlib.collections import PolyCollection
 import matplotlib.colors as mcolors
+import numpy as np
+from matplotlib.scale import FuncScale
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import utils
@@ -17,7 +19,19 @@ with open(f"../pic_pkl/n{scenario}{dataset}.pkl", "rb") as f:
 
 ATTACK_ORDER = ['score', 'ikk', 'sap', 'ihop', 'ihopM', "midas_1", 'midas', "jigsaw"]
 
-fig, ax1 = plt.subplots(figsize=(6, 4))
+def y_forward(v):
+    v = np.asarray(v, dtype=float)
+    return np.where(v <= 0.3, (2/3) * v,
+           np.where(v <= 0.7, 0.2 + (v - 0.3) * 1.5,
+                            0.8 + (v - 0.7) * (2/3)))
+
+def y_inverse(d):
+    d = np.asarray(d, dtype=float)
+    return np.where(d <= 0.2, d / (2/3),
+           np.where(d <= 0.8, 0.3 + (d - 0.2) / 1.5,
+                            0.7 + (d - 0.8) / (2/3)))
+
+fig, ax1 = plt.subplots(figsize=(6, 5))
 
 sns.lineplot(pkl, x='n', y='recovery', hue='attack',
              hue_order=ATTACK_ORDER,
@@ -44,8 +58,11 @@ for i, atk in enumerate(ATTACK_ORDER):
 plt.grid(False)
 plt.grid(axis='y', ls='--')
 
+ax1.set_yscale(FuncScale(ax1, (y_forward, y_inverse)))
+ax1.set_ylim(-0.05, 1.05)
+
 m = [500, 1000, 1500, 2000]
-yaxis = [0.00, 0.25, 0.50, 0.75, 1.00]
+yaxis = [0.00, 0.2, 0.4, 0.6, 0.8, 1.00]
 plt.xticks([500, 1000, 1500, 2000], m, fontsize=16)
 plt.yticks(yaxis, yaxis, fontsize=16)
 ax1.set_ylabel('Accuracy', fontsize=20)
