@@ -229,16 +229,16 @@ cd pic && python3 nPlot.py -d Enron -s S3 && python3 nTimePlot.py -d Enron -s S3
 
 ```sh
 # Enron
-python3 nTestLimitedTime.py -s S1
-cd pic && python3 limitedTimeNEnronPlot.py -s S1 && cd ..
-python3 nTestLimitedTime.py -s S2
-cd pic && python3 limitedTimeNEnronPlot.py -s S2 && cd ..
+python3 nTestLimitedTime.py -d Enron -s S1
+cd pic && python3 limitedTimeNEnronPlot.py -d Enron -s S1 && cd ..
+python3 nTestLimitedTime.py -d Enron -s S2
+cd pic && python3 limitedTimeNEnronPlot.py -d Enron -s S2 && cd ..
 
 # Lucene
-python3 nTestLimitedTimeOnLargeKeyword.py -s S1
-cd pic && python3 limitedTimeNLargeLucenePlot.py -s S1 && cd ..
-python3 nTestLimitedTimeOnLargeKeyword.py -s S2
-cd pic && python3 limitedTimeNLargeLucenePlot.py -s S2 && cd ..
+python3 nTestLimitedTimeOnLargeKeyword.py -d Lucene -s S1
+cd pic && python3 limitedTimeNLargeLucenePlot.py -d Lucene -s S1 && cd ..
+python3 nTestLimitedTimeOnLargeKeyword.py -d Lucene -s S2
+cd pic && python3 limitedTimeNLargeLucenePlot.py -d Lucene -s S2 && cd ..
 ```
 
 #### Comparison on the number of observed queries $m$ (Figure 12)
@@ -261,10 +261,10 @@ cd pic && python3 mPlot.py -d Enron -s S3 && python3 mTimePlot.py -d Enron -s S3
 
 ```sh
 # Enron
-python3 mTestLimitedTime.py -s S1
-cd pic && python3 limitedTimeMEnronPlot.py -s S1 && cd ..
-python3 mTestLimitedTime.py -s S2
-cd pic && python3 limitedTimeMEnronPlot.py -s S2 && cd ..
+python3 mTestLimitedTime.py -d Enron -s S1
+cd pic && python3 limitedTimeMEnronPlot.py -d Enron -s S1 && cd ..
+python3 mTestLimitedTime.py -d Enron -s S2
+cd pic && python3 limitedTimeMEnronPlot.py -d Enron -s S2 && cd ..
 
 # Lucene
 python3 mTestLimitedTime.py -d Lucene -s S1
@@ -316,7 +316,7 @@ python3 osseTest.py -d Lucene -s S3 && cd pic && python3 ossePlot.py -d Lucene -
 | Incremental computation (Figure 8) | `python3 ablationOptimizeMTest.py` and `python3 ablationOptimizeNTest.py` | `cd pic && python3 ablationOptimizeMPlot.py && python3 ablationOptimizeNPlot.py` |
 | Auxiliary knowledge comparison (Figure 9) | `python3 auxTest.py --dataset {Enron,Lucene} --scenarios {S1,S2,S3}` | `cd pic && python3 auxPlot.py -d {dataset} -s {scenarios}` (6 combinations) |
 | Keyword-space comparison (Figure 10) | `python3 nTest.py --dataset Enron --scenarios {S1,S2,S3}` | `cd pic && python3 nPlot.py -d Enron -s {scenarios} && python3 nTimePlot.py -d Enron -s {scenarios}` |
-| Similar-runtime comparison on `n` (Figure 11) | `python3 nTestLimitedTime.py -s {S1,S2}` (Enron) and `python3 nTestLimitedTimeOnLargeKeyword.py -s {S1,S2}` (Lucene) | `cd pic && python3 limitedTimeNEnronPlot.py -s {S1,S2} && python3 limitedTimeNLargeLucenePlot.py -s {S1,S2}` |
+| Similar-runtime comparison on `n` (Figure 11) | `python3 nTestLimitedTime.py -d Enron -s {S1,S2}` and `python3 nTestLimitedTimeOnLargeKeyword.py -d Lucene -s {S1,S2}` | `cd pic && python3 limitedTimeNEnronPlot.py -d Enron -s {S1,S2} && python3 limitedTimeNLargeLucenePlot.py -d Lucene -s {S1,S2}` |
 | Query-count comparison (Figure 12) | `python3 mTest.py --dataset Enron --scenarios {S1,S2,S3}` | `cd pic && python3 mPlot.py -d Enron -s {scenarios} && python3 mTimePlot.py -d Enron -s {scenarios}` |
 | Similar-runtime comparison on `m` (Figure 13) | `python3 mTestLimitedTime.py -d {Enron,Lucene} -s {S1,S2}` | `cd pic && python3 limitedTimeMEnronPlot.py -d {Enron,Lucene} -s {S1,S2}` |
 | Attack against CLRZ defense (Figure 14) | `python3 clrzTest.py -d {Enron,Lucene} -s {S1,S2,S3}` | `cd pic && python3 clrzPlot.py -d {dataset} -s {scenarios}` (6 combinations) |
