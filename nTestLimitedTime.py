@@ -9,19 +9,26 @@ import attacks.midas_incremental_optimization as midas
 import attacks.ihopM as ihopM
 from attacks.jigsaw import Attacker
 
+CONFIG = {
+    'Enron': {'file': 'Enron_3000', 'n': [1000, 2000, 3000], 'query_len': 500},
+    'Lucene': {'file': 'Lucene_6000', 'n': [3000, 5000, 6000], 'query_len': 500},
+}
+
 if __name__ == '__main__':
     args = utils.parameter_parse('Enron', 'S2')
     scenarios = args.scenarios
     dataset = args.dataset
+    cfg = CONFIG[dataset]
 
     IHOP_PROBE_ITERS = 20
     JIGSAW_PROBE_REFSPEED = 5
 
-    n = [500, 1000, 1500, 2000]
+    n = cfg['n']
+    query_len = cfg['query_len']
     count = 10  # Number of experiments
 
     df = pd.DataFrame(columns=["count", 'n', "attack", "time", "recovery"])
-    with open(f'./Datasets/Enron_3000.pkl', 'rb') as f:
+    with open(f'./Datasets/{cfg["file"]}.pkl', 'rb') as f:
         pkl = pickle.load(f)
 
     # Extract the number of non-indexed and indexed documents and generate an access pattern matrix.
@@ -42,13 +49,12 @@ if __name__ == '__main__':
             word_len = v_m
             # Generate keyword and query sets based on different scenarios, and remove all 0 columns from the access pattern matrix.
             wordSet = [keywords[i] for i in
-                       np.random.permutation(3000)[:word_len]] if scenarios == "S1" else keywords[:word_len]
+                       np.random.permutation(len(keywords))[:word_len]] if scenarios == "S1" else keywords[:word_len]
             wordAccess = keywords_matrix.loc[wordSet]
             A = wordAccess.replace(0, np.nan)
             A = A.dropna(axis=1, how='all')
             A = A.replace(np.nan, 0)
 
-            query_len = 300  # Query quantity
             query = [wordSet[i] for i in range(query_len)] \
                 if scenarios == "S3" else [wordSet[i] for i in np.random.permutation(word_len)[:query_len]]
             queryAccess = queries_matrix.loc[query]
