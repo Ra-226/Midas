@@ -77,4 +77,7 @@ plt.setp(ax1.get_xticklabels(), fontsize=16)
 plt.yticks([0, 0.25, 0.5, 0.75, 1], [0, 0.25, 0.5, 0.75, 1], fontsize=16)
 plt.tick_params(axis='y', colors='red')
 
+ax1.set_ylim(-0.01 * yticks[-1], yticks[-1])
+ax2.set_ylim(-0.01, 1.0)
+
 plt.savefig(f"./pictures/PRa{dataset}.pdf", bbox_inches='tight', bbox_extra_artists=(legend1,))

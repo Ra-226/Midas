@@ -66,7 +66,8 @@ for i in range(len(p)):
 xtick_labels = ['$\\rho$={}'.format(pp) for pp in p]
 plt.xticks(xtick_positions, xtick_labels, fontsize=18)
 plt.setp(ax1.get_xticklabels(), fontsize=16)
-ax2.set_ylim([-0.01, 1.01])
+ax1.set_ylim(-0.01, 1.05)
+ax2.set_ylim(-0.01, 1.05)
 
 plt.yticks([0, 0.25, 0.5, 0.75, 1], [0, 0.25, 0.5, 0.75, 1], fontsize=16)
 plt.tick_params(axis='y', colors='red')
