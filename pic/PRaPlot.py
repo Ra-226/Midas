@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 from matplotlib.legend import Legend
 from matplotlib.lines import Line2D
 import numpy as np
-import seaborn as sns
 import pickle
 import argparse
 
