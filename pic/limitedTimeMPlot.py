@@ -46,7 +46,9 @@ fig, ax1 = plt.subplots(figsize=(6, 8))
 sns.boxplot(
     data=df, x='m', y='recovery',
     order=order, hue='attack', hue_order=attacks,
-    palette=palette, ax=ax1
+    palette=palette, ax=ax1,
+    flierprops={'marker': 'o', 'markerfacecolor': 'none',
+                'markeredgecolor': 'k', 'markersize': 6}
 )
 ax1.set_ylabel('Accuracy', fontsize=22)
 
