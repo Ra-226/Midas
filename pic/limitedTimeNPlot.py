@@ -1,4 +1,5 @@
 import pickle
+import math
 import sys, os
 import matplotlib.pyplot as plt
 import numpy as np
@@ -66,6 +67,13 @@ for atk in attacks:
     ax2.scatter(x_pos, sub['time'], s=80,
                 color='red', marker=marker_map[atk],
                 zorder=3)
+max_time = mean_times['time'].max()
+if max_time > 0:
+    step = 10 ** math.floor(math.log10(max_time))
+    upper = math.ceil(max_time / step) * step * 4
+else:
+    upper = 1.0
+ax2.set_ylim(0, upper)
 ax2.set_ylabel('Running Time (s)', fontsize=22, color='red')
 
 handles_box, labels_box = ax1.get_legend_handles_labels()
