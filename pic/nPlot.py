@@ -1,12 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import seaborn as sns
 import pickle
 import matplotlib.pyplot as plt
-from matplotlib.collections import PolyCollection
-import matplotlib.colors as mcolors
 import numpy as np
-from matplotlib.scale import FuncScale
 import sys, os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import utils
@@ -18,53 +14,48 @@ with open(f"../pic_pkl/n{scenario}{dataset}.pkl", "rb") as f:
     pkl = pickle.load(f)
 
 ATTACK_ORDER = ['score', 'ikk', 'sap', 'ihop', 'ihopM', "midas_1", 'midas', "jigsaw"]
+marker_map = dict(zip(ATTACK_ORDER, ["v", 'd', "^", 'H', ">", "*", 'o', "<"]))
+n_order = sorted(pkl['n'].unique())
 
-def y_forward(v):
-    v = np.asarray(v, dtype=float)
-    return np.where(v <= 0.3, (2/3) * v,
-           np.where(v <= 0.7, 0.2 + (v - 0.3) * 1.5,
-                            0.8 + (v - 0.7) * (2/3)))
+def boot_ci(a, n_boot=1000, seed=None):
+    rng = np.random.default_rng(seed)
+    means = np.array([np.mean(rng.choice(a, size=len(a), replace=True)) for _ in range(n_boot)])
+    lo, hi = np.percentile(means, [2.5, 97.5])
+    return lo, hi
 
-def y_inverse(d):
-    d = np.asarray(d, dtype=float)
-    return np.where(d <= 0.2, d / (2/3),
-           np.where(d <= 0.8, 0.3 + (d - 0.2) / 1.5,
-                            0.7 + (d - 0.8) / (2/3)))
+group_width = 0.8
+offsets = np.linspace(-group_width / 2 + group_width / (2 * len(ATTACK_ORDER)),
+                      group_width / 2 - group_width / (2 * len(ATTACK_ORDER)),
+                      len(ATTACK_ORDER))
+colors = ["C4", "C6", 'c', 'C2', 'C1', 'C3', "C0", "C5"]
 
 fig, ax1 = plt.subplots(figsize=(6, 4))
-
-sns.lineplot(pkl, x='n', y='recovery', hue='attack',
-             hue_order=ATTACK_ORDER,
-             style_order=ATTACK_ORDER,
-             palette=["C4", "C6", 'c', 'C2', 'C1', 'C3', "C0", "C5"], style="attack", linewidth=2,
-             markers=["v", 'd', "^", 'H', ">", "*", 'o', "<"], markeredgecolor='none', markersize=12,
-             legend=False,
-             errorbar=('ci', 95))
-
-
-for col in ax1.collections:
-    if isinstance(col, PolyCollection):
-        fc = mcolors.to_rgba(col.get_facecolor()[0])
-        edge = tuple(0.7 * fc[i] for i in range(3)) + (1.0,)
-        edge = sns.utils.set_hls_values(fc, l=0.45)
-        col.set_edgecolor(edge + (0.35,))
-        col.set_linewidth(0.7)
-        col.set_facecolor(mcolors.to_rgba(col.get_facecolor()[0], 0.15))
-        col.set_alpha(None)
-
-for i, atk in enumerate(ATTACK_ORDER):
-    ax1.lines[i].set_linestyle("--" if atk == "midas_1" else "-")
-
-plt.grid(False)
 plt.grid(axis='y', ls='--')
 
-ax1.set_yscale(FuncScale(ax1, (y_forward, y_inverse)))
-ax1.set_ylim(-0.05, 1.05)
+for j, atk in enumerate(ATTACK_ORDER):
+    sub = pkl[pkl['attack'] == atk]
+    x_pos, y_mean, yerr_lo, yerr_hi = [], [], [], []
+    for i, n_val in enumerate(n_order):
+        vals = sub[sub['n'] == n_val]['recovery'].values
+        lo, hi = boot_ci(vals)
+        x_pos.append(i + offsets[j])
+        y_mean.append(vals.mean())
+        yerr_lo.append(vals.mean() - lo)
+        yerr_hi.append(hi - vals.mean())
+    ax1.errorbar(x_pos, y_mean, yerr=[yerr_lo, yerr_hi],
+                 fmt=marker_map[atk], color=colors[j], ecolor=colors[j],
+                 ms=8,  # marker size in points (default 6)
+                 elinewidth=1,  # error bar line width in points (default 1)
+                 capsize=3,  # length of the caps on the error bars (points)
+                 mew=0.5, mec='k',  # marker edge width / edge color (optional)
+                 zorder=3)
 
+ax1.set_ylim(-0.05, 1.05)
 m = [500, 1000, 1500, 2000]
-yaxis = [0.00, 0.2, 0.4, 0.6, 0.8, 1.00]
-plt.xticks([500, 1000, 1500, 2000], m, fontsize=16)
-plt.yticks(yaxis, yaxis, fontsize=16)
+ax1.set_xticks(range(len(n_order)))
+ax1.set_xticklabels([str(v) for v in m], fontsize=16)
+ax1.set_xlim(-0.5, len(n_order) - 0.5)
+plt.yticks([0.0, 0.2, 0.4, 0.6, 0.8, 1.0], fontsize=16)
 ax1.set_ylabel('Accuracy', fontsize=20)
 ax1.set_xlabel('Number of keywords ($n$)', fontsize=20)
 
