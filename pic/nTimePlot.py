@@ -19,13 +19,13 @@ with open(f"../pic_pkl/n{scenario}{dataset}.pkl", "rb") as f:
 
 ATTACK_ORDER = ['score', 'ikk', 'sap', 'ihop', 'ihopM', "midas_1", 'midas', "jigsaw"]
 
-fig, ax1 = plt.subplots(figsize=(6, 5))
+fig, ax1 = plt.subplots(figsize=(6, 4))
 
 sns.lineplot(pkl, x='n', y='time', hue='attack',
              hue_order=ATTACK_ORDER,
              style_order=ATTACK_ORDER,
-             palette=["C4", "C6", 'c', 'C2', 'C1', 'C3', "C0", "C5"], style="attack", linewidth=3,
-             markers=["v", "d", "^", "H", ">", "*", "o", "<"], markeredgecolor='none', markersize=16,
+             palette=["C4", "C6", 'c', 'C2', 'C1', 'C3', "C0", "C5"], style="attack", linewidth=2,
+             markers=["v", "d", "^", "H", ">", "*", "o", "<"], markeredgecolor='none', markersize=12,
              legend=False,
              errorbar=('ci', 95))
 
@@ -62,7 +62,7 @@ legend_elements = [Line2D([0], [0], color='C0', linestyle='-', marker='o'),
                    Line2D([0], [0], color='C3', linestyle='--', marker='*')]
 legend_labels = ['Midas', 'Score', 'IKK', 'SAP', 'IHOP', 'IHOP$^M$', "Jigsaw", "Midas $\\gamma=1$"]
 legend2 = Legend(ax1, legend_elements, legend_labels, ncol=2, loc='upper left',
-                 fontsize=12, markerscale=2)
+                 fontsize=12, markerscale=1.5)
 ax1.add_artist(legend2)
 
 plt.savefig(f"./pictures/n{scenario}{dataset}Time.pdf", bbox_inches='tight')

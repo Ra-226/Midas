@@ -23,7 +23,7 @@ fig, ax1 = plt.subplots(figsize=(6, 4))
 
 ax = sns.lineplot(pkl, x='x', y='recovery', hue='theta',
                   palette=['C0', "C1", "C2", 'C3', 'C4'], style="theta",
-                  markers=['o', 'v', 'd', '^', 'H'], markeredgecolor='none', markersize=12, legend=False,
+                  markers=['o', 'v', 'd', '^', 'H'], markeredgecolor='none', linewidth=2, markersize=12, legend=False,
                   errorbar=('ci', 95))
 
 ax1.lines[0].set_linestyle("-")
@@ -41,7 +41,7 @@ legend_elements = [Line2D([0], [0], color='C0', linestyle='-', marker='o'),
                    Line2D([0], [0], color='C3', linestyle='-', marker='^'),
                    Line2D([0], [0], color='C4', linestyle='-', marker='H')]
 legend_labels = ['IHOP'] + ['IHOP$^M$ $\\theta$={}'.format(nkw) for nkw in [1, 5, 10, 25]]
-legend2 = Legend(ax1, legend_elements, legend_labels, loc='lower right', fontsize=16, markerscale=2)
+legend2 = Legend(ax1, legend_elements, legend_labels, loc='lower right', fontsize=16, markerscale=1.5)
 ax1.add_artist(legend2)
 
 niter = [10, 20, 50, 100, 200, 500, 1000, 2000]

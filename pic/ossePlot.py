@@ -32,8 +32,8 @@ fig, ax1 = plt.subplots(figsize=(6, 4))
 sns.lineplot(pkl, x='fpr', y='recovery', hue='attack',
               hue_order=hue_order,
               style_order=hue_order,
-              palette=palette, style="attack", linewidth=3,
-              markers=markers, markeredgecolor='none', markersize=16, legend=False,
+              palette=palette, style="attack", linewidth=2,
+              markers=markers, markeredgecolor='none', markersize=12, legend=False,
               errorbar=('ci', 95))
 
 for col in ax1.collections:
@@ -69,7 +69,7 @@ legend_elements = [Line2D([0], [0], color='C0', linestyle='-', marker='o'),
                    Line2D([0], [0], color='C3', linestyle='--', marker='*')]
 legend_labels = ['Midas', 'Score', 'IKK', 'SAP', 'IHOP', 'IHOP$^M$', "Jigsaw", "Midas $\\gamma=1$"]
 legend2 = Legend(ax1, legend_elements, legend_labels, ncol=2, loc='best',
-                 fontsize=12, markerscale=2)
+                 fontsize=12, markerscale=1.5)
 ax1.add_artist(legend2)
 
 plt.savefig(f"./pictures/osse{args.scenarios}{args.dataset}.pdf",

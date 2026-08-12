@@ -22,8 +22,8 @@ fig, ax1 = plt.subplots(figsize=(6, 4))
 sns.lineplot(pkl, x='m', y='recovery', hue='attack',
              hue_order=ATTACK_ORDER,
              style_order=ATTACK_ORDER,
-             palette=["C4", "C6", 'c', 'C2', 'C1', 'C3', "C0", "C5"], style="attack", linewidth=3,
-             markers=["v", 'd', "^", 'H', ">", "*", 'o', "<"], markeredgecolor='none', markersize=16,
+             palette=["C4", "C6", 'c', 'C2', 'C1', 'C3', "C0", "C5"], style="attack", linewidth=2,
+             markers=["v", 'd', "^", 'H', ">", "*", 'o', "<"], markeredgecolor='none', markersize=12,
              legend=False,
              errorbar=('ci', 95))
 

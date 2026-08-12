@@ -22,7 +22,7 @@ with open(f"../pic_pkl/CRTest_Dsim_5000_count_30_{dataset}.pkl", "rb") as f:
 fig, ax1 = plt.subplots(figsize=(6, 4))
 
 sns.lineplot(pkl, x='mu', y='recovery', hue='gamma', palette=["C0", "C1", "C2", 'C3'], style="gamma",
-             markers=['o', 'v', 'd', '^'], markeredgecolor='none', markersize=12, legend=False, errorbar=('ci', 95))
+             markers=['o', 'v', 'd', '^'], markeredgecolor='none', linewidth=2, markersize=12, legend=False, errorbar=('ci', 95))
 
 ax1.lines[0].set_linestyle("-")
 ax1.lines[1].set_linestyle("-")
@@ -37,7 +37,7 @@ legend_elements = [Line2D([0], [0], color='C0', linestyle='-', marker='o'),
                    Line2D([0], [0], color='C2', linestyle='-', marker='d'),
                    Line2D([0], [0], color='C3', linestyle='-', marker='^')]
 legend_labels = ['$\gamma$={}'.format(nkw) for nkw in [1, 2, 3, 4]]
-legend2 = Legend(ax1, legend_elements, legend_labels, loc='lower right', fontsize=16, markerscale=2)
+legend2 = Legend(ax1, legend_elements, legend_labels, loc='lower right', fontsize=16, markerscale=1.5)
 ax1.add_artist(legend2)
 
 u = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]

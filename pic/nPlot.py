@@ -31,13 +31,13 @@ def y_inverse(d):
            np.where(d <= 0.8, 0.3 + (d - 0.2) / 1.5,
                             0.7 + (d - 0.8) / (2/3)))
 
-fig, ax1 = plt.subplots(figsize=(6, 5))
+fig, ax1 = plt.subplots(figsize=(6, 4))
 
 sns.lineplot(pkl, x='n', y='recovery', hue='attack',
              hue_order=ATTACK_ORDER,
              style_order=ATTACK_ORDER,
-             palette=["C4", "C6", 'c', 'C2', 'C1', 'C3', "C0", "C5"], style="attack", linewidth=3,
-             markers=["v", 'd', "^", 'H', ">", "*", 'o', "<"], markeredgecolor='none', markersize=16,
+             palette=["C4", "C6", 'c', 'C2', 'C1', 'C3', "C0", "C5"], style="attack", linewidth=2,
+             markers=["v", 'd', "^", 'H', ">", "*", 'o', "<"], markeredgecolor='none', markersize=12,
              legend=False,
              errorbar=('ci', 95))
 
