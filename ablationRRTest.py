@@ -4,6 +4,7 @@ import pandas as pd
 import time
 import utils
 import attacks.midas as midas
+import random
 
 if __name__ == '__main__':
     gamma = [1, 2, 3, 4]
@@ -24,8 +25,10 @@ if __name__ == '__main__':
     keywords_matrix = utils.generate_matrix(pkl[0], pkl[2])
     queries_matrix = utils.generate_matrix(pkl[1], pkl[3])
 
-    for _, val in enumerate(m):
+    for i_m, val in enumerate(m):
         for i_count in range(count):
+            np.random.seed(i_m * count + i_count)
+            random.seed(i_m * count + i_count)
             print(f"parameter: {val}, iterations: {i_count}...")
             wordSet = [keywords[i] for i in
                        np.random.permutation(3000)[:word_len]] if scenarios == "S1" else keywords[:word_len]
