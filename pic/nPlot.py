@@ -50,6 +50,10 @@ for j, atk in enumerate(ATTACK_ORDER):
                  mew=0.5, mec='k',  # marker edge width / edge color (optional)
                  zorder=3)
 
+for xc in np.arange(0.5, len(n_order) - 0.5):
+    ax1.axvline(xc, color='black', linestyle='--',
+                linewidth=0.8, alpha=0.5, zorder=2)
+
 ax1.set_ylim(-0.05, 1.05)
 m = [500, 1000, 1500, 2000]
 ax1.set_xticks(range(len(n_order)))
