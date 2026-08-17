@@ -44,7 +44,7 @@ for patch, color in zip(box['boxes'], colors):
 for item in ['whiskers', 'fliers', 'medians', 'caps']:
     plt.setp(box[item], color='k')
 
-plt.yticks([0, 0.25, 0.5, 0.75, 1], [0, 0.25, 0.5, 0.75, 1], fontsize=16)
+plt.yticks([0, 0.25, 0.5, 0.75, 1], [0.0, 0.25, 0.5, 0.75, 1.0], fontsize=16)
 legend_elements = box['boxes'][:len(m)] + [Line2D([0], [0], color='C3', linestyle=':', marker='o')]
 legend_labels = ['$m$={}$n$'.format(nkw) for nkw in m] + ['Top 5 accuracy']
 legend1 = Legend(ax1, legend_elements, legend_labels, frameon=True,
@@ -68,7 +68,7 @@ plt.setp(ax1.get_xticklabels(), fontsize=16)
 ax1.set_ylim(-0.01, 1.05)
 ax2.set_ylim(-0.01, 1.05)
 
-plt.yticks([0, 0.25, 0.5, 0.75, 1], [0, 0.25, 0.5, 0.75, 1], fontsize=16)
+plt.yticks([0, 0.25, 0.5, 0.75, 1], [0.0, 0.25, 0.5, 0.75, 1.0], fontsize=16)
 plt.tick_params(axis='y', colors='red')
 
 plt.savefig(f"./pictures/PRb{dataset}.pdf", bbox_inches='tight', bbox_extra_artists=(legend1,))

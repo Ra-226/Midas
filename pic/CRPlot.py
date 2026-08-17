@@ -41,7 +41,7 @@ legend2 = Legend(ax1, legend_elements, legend_labels, loc='lower right', fontsiz
 ax1.add_artist(legend2)
 
 u = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
-yaxis = [0, 0.25, 0.5, 0.75, 1]
+yaxis = [0.0, 0.25, 0.5, 0.75, 1.0]
 
 xtick_labels = ['$\mu$={}'.format(pp) for pp in u]
 plt.xticks(u, u, fontsize=16)

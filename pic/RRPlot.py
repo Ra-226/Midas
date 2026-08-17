@@ -11,6 +11,10 @@ import numpy as np
 
 import argparse
 
+def fmt(v):
+    s = f'{v:.2f}'.rstrip('0').rstrip('.')
+    return s if '.' in s else s + '.0'
+
 parser = argparse.ArgumentParser()
 parser.add_argument('-d', '--dataset', default='Enron', choices=['Enron', 'Lucene'])
 args = parser.parse_args()
@@ -42,14 +46,15 @@ if dataset == 'Lucene':
         lambda x: x.mean() - 1.96 * x.std() / np.sqrt(len(x))
     ).min()
     ymin = max(0, ci_lower - 0.10)
-    step = round((1.0 - ymin) / 4, 3)
+    ymin = np.floor(ymin * 10) / 10
+    step = round((1.0 - ymin) / 4, 2)
     yaxis = [round(ymin + i * step, 3) for i in range(5)]
     yaxis[-1] = 1.0
 else:
     yaxis = [0.00, 0.25, 0.50, 0.75, 1.00]
 
 xtick_labels = ['$\eta$={}'.format(pp) for pp in e_n]
-plt.yticks(yaxis, [f'{v:.2f}' for v in yaxis], fontsize=16)
+plt.yticks(yaxis, [fmt(v) for v in yaxis], fontsize=16)
 plt.xticks(e_n, e_n, fontsize=16)
 ax1.set_ylabel('Prior query accuracy', fontsize=16)
 ax1.set_xlabel('$\eta$', fontsize=16)
