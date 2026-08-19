@@ -81,63 +81,6 @@ def generate_matrix(data, files_index):
     return df.astype("uint8")
 
 
-_pad_counter = 0
-
-
-def _next_pad_id():
-    global _pad_counter
-    _pad_counter += 1
-    return _pad_counter - 1
-
-
-def _build_padded_matrix(B, pad_counts):
-    pad_counts = pad_counts.astype(int)
-    total_pad = int(pad_counts.sum())
-    if total_pad == 0:
-        return B.copy()
-    rows = np.repeat(np.arange(len(B)), pad_counts)
-    cols = np.arange(total_pad)
-    full = np.zeros((len(B), B.shape[1] + total_pad), dtype=int)
-    full[:, :B.shape[1]] = B.values
-    full[rows, B.shape[1] + cols] = 1
-    pad_names = [f"pad_{_next_pad_id()}" for _ in range(total_pad)]
-    return pd.DataFrame(full, index=B.index,
-                        columns=list(B.columns) + pad_names)
-
-
-def padding_seal(B, n):
-    if n <= 1:
-        return B.copy()
-    v = B.sum(axis=1).values
-    needed = np.ceil(np.log(np.maximum(v, 1)) / np.log(n)).astype(int)
-    pad_counts = (n ** needed) - v
-    return _build_padded_matrix(B, pad_counts)
-
-
-def padding_linear(B, k):
-    if k == 0:
-        return B.copy()
-    v = B.sum(axis=1).values
-    pad_counts = np.ceil(v / k).astype(int) * k - v
-    return _build_padded_matrix(B, pad_counts)
-
-
-def padding_cluster(B, knum_in_cluster):
-    if knum_in_cluster <= 1:
-        return B.copy()
-    v = B.sum(axis=1).values
-    order = np.argsort(v)
-    rank = np.argsort(order)
-    n = len(B)
-    group_id = rank // knum_in_cluster
-    n_groups = (n + knum_in_cluster - 1) // knum_in_cluster
-    group_ends = np.minimum((np.arange(n_groups) + 1) * knum_in_cluster, n) - 1
-    max_volumes = v[order[group_ends]]
-    max_in_group = max_volumes[group_id]
-    pad_counts = np.maximum(max_in_group - v, 0)
-    return _build_padded_matrix(B, pad_counts)
-
-
 def osse_obfuscate(B, TPR, FPR):
     B_arr = B.values
     rnd = np.random.random(B_arr.shape)
