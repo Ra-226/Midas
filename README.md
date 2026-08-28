@@ -42,6 +42,8 @@ Main dependencies:
 - `seaborn`
 - `tqdm`
 
+Runtimes shown as comments below are indicative; the actual runtime is primarily determined by the CPU frequency and the available memory, and may therefore differ on a different machine.
+
 ## Experimental Scenarios
 
 The experiments use two datasets, `Enron` and `Lucene`, and three query-generation scenarios:
@@ -145,12 +147,12 @@ python3 CRPlot.py --dataset Lucene
 
 ```sh
 # Enron (Figure 5)
-python3 ihopMTest.py --dataset Enron
+python3 ihopMTest.py --dataset Enron   # ~30min
 cd pic
 python3 ihopMPlot.py --dataset Enron
 
 # Lucene (Appendix)
-python3 ihopMTest.py --dataset Lucene
+python3 ihopMTest.py --dataset Lucene   # ~1h
 cd pic
 python3 ihopMPlot.py --dataset Lucene
 ```
@@ -161,12 +163,12 @@ python3 ihopMPlot.py --dataset Lucene
 
 ```sh
 # S1
-python3 ablationLeakageTest.py --scenarios S1
+python3 ablationLeakageTest.py --scenarios S1   # <2min
 cd pic
 python3 ablationLeakagePlot.py --scenarios S1
 
 # S2
-python3 ablationLeakageTest.py --scenarios S2
+python3 ablationLeakageTest.py --scenarios S2   # <2min
 cd pic
 python3 ablationLeakagePlot.py --scenarios S2
 ```
@@ -175,12 +177,12 @@ python3 ablationLeakagePlot.py --scenarios S2
 
 ```sh
 # S1
-python3 ablationRRTest.py --scenarios S1
+python3 ablationRRTest.py --scenarios S1   # ~5min
 cd pic
 python3 ablationRRPlot.py --scenarios S1
 
 # S2
-python3 ablationRRTest.py --scenarios S2
+python3 ablationRRTest.py --scenarios S2   # ~5min
 cd pic
 python3 ablationRRPlot.py --scenarios S2
 ```
@@ -188,8 +190,8 @@ python3 ablationRRPlot.py --scenarios S2
 #### Incremental computation (Figure 8)
 
 ```sh
-python3 ablationOptimizeMTest.py
-python3 ablationOptimizeNTest.py
+python3 ablationOptimizeMTest.py   # ~10min
+python3 ablationOptimizeNTest.py   # ~15min
 cd pic
 python3 ablationOptimizeMPlot.py
 python3 ablationOptimizeNPlot.py
@@ -201,27 +203,27 @@ python3 ablationOptimizeNPlot.py
 
 ```sh
 # Run for each dataset/scenario, then plot with the matching script
-python3 auxTest.py --dataset Enron --scenarios S1   && cd pic && python3 auxPlot.py -d Enron -s S1   && cd ..
-python3 auxTest.py --dataset Enron --scenarios S2   && cd pic && python3 auxPlot.py -d Enron -s S2   && cd ..
-python3 auxTest.py --dataset Enron --scenarios S3   && cd pic && python3 auxPlot.py -d Enron -s S3   && cd ..
-python3 auxTest.py --dataset Lucene --scenarios S1 && cd pic && python3 auxPlot.py -d Lucene -s S1 && cd ..
-python3 auxTest.py --dataset Lucene --scenarios S2 && cd pic && python3 auxPlot.py -d Lucene -s S2 && cd ..
-python3 auxTest.py --dataset Lucene --scenarios S3 && cd pic && python3 auxPlot.py -d Lucene -s S3 && cd ..
+python3 auxTest.py --dataset Enron --scenarios S1   && cd pic && python3 auxPlot.py -d Enron -s S1   && cd ..   # ~2.5h
+python3 auxTest.py --dataset Enron --scenarios S2   && cd pic && python3 auxPlot.py -d Enron -s S2   && cd ..   # ~2.5h
+python3 auxTest.py --dataset Enron --scenarios S3   && cd pic && python3 auxPlot.py -d Enron -s S3   && cd ..   # ~1.5h
+python3 auxTest.py --dataset Lucene --scenarios S1 && cd pic && python3 auxPlot.py -d Lucene -s S1 && cd ..   # ~2.5h
+python3 auxTest.py --dataset Lucene --scenarios S2 && cd pic && python3 auxPlot.py -d Lucene -s S2 && cd ..   # ~2.5h
+python3 auxTest.py --dataset Lucene --scenarios S3 && cd pic && python3 auxPlot.py -d Lucene -s S3 && cd ..   # ~2.5h
 ```
 
 #### Comparison on keyword space $n$ (Figure 10)
 
 ```sh
 # Enron S1
-python3 nTest.py --dataset Enron --scenarios S1
+python3 nTest.py --dataset Enron --scenarios S1   # ~2.5h
 cd pic && python3 nPlot.py -d Enron -s S1 && python3 nTimePlot.py -d Enron -s S1 && cd ..
 
 # Enron S2
-python3 nTest.py --dataset Enron --scenarios S2
+python3 nTest.py --dataset Enron --scenarios S2   # ~2.5h
 cd pic && python3 nPlot.py -d Enron -s S2 && python3 nTimePlot.py -d Enron -s S2 && cd ..
 
 # Enron S3
-python3 nTest.py --dataset Enron --scenarios S3
+python3 nTest.py --dataset Enron --scenarios S3   # ~2.5h
 cd pic && python3 nPlot.py -d Enron -s S3 && python3 nTimePlot.py -d Enron -s S3 && cd ..
 ```
 
@@ -229,15 +231,15 @@ cd pic && python3 nPlot.py -d Enron -s S3 && python3 nTimePlot.py -d Enron -s S3
 
 ```sh
 # Enron
-python3 nTestLimitedTime.py -d Enron -s S1
+python3 nTestLimitedTime.py -d Enron -s S1   # ~25min
 cd pic && python3 limitedTimeNPlot.py -d Enron -s S1 && cd ..
-python3 nTestLimitedTime.py -d Enron -s S2
+python3 nTestLimitedTime.py -d Enron -s S2   # ~25min
 cd pic && python3 limitedTimeNPlot.py -d Enron -s S2 && cd ..
 
 # Lucene
-python3 nTestLimitedTime.py -d Lucene -s S1
+python3 nTestLimitedTime.py -d Lucene -s S1   # ~40min
 cd pic && python3 limitedTimeNPlot.py -d Lucene -s S1 && cd ..
-python3 nTestLimitedTime.py -d Lucene -s S2
+python3 nTestLimitedTime.py -d Lucene -s S2   # ~40min
 cd pic && python3 limitedTimeNPlot.py -d Lucene -s S2 && cd ..
 ```
 
@@ -245,15 +247,15 @@ cd pic && python3 limitedTimeNPlot.py -d Lucene -s S2 && cd ..
 
 ```sh
 # S1
-python3 mTest.py --dataset Enron --scenarios S1
+python3 mTest.py --dataset Enron --scenarios S1   # ~3.5h
 cd pic && python3 mPlot.py -d Enron -s S1 && python3 mTimePlot.py -d Enron -s S1 && cd ..
 
 # S2
-python3 mTest.py --dataset Enron --scenarios S2
+python3 mTest.py --dataset Enron --scenarios S2   # ~3.5h
 cd pic && python3 mPlot.py -d Enron -s S2 && python3 mTimePlot.py -d Enron -s S2 && cd ..
 
 # S3
-python3 mTest.py --dataset Enron --scenarios S3
+python3 mTest.py --dataset Enron --scenarios S3   # ~3.5h
 cd pic && python3 mPlot.py -d Enron -s S3 && python3 mTimePlot.py -d Enron -s S3 && cd ..
 ```
 
@@ -261,15 +263,15 @@ cd pic && python3 mPlot.py -d Enron -s S3 && python3 mTimePlot.py -d Enron -s S3
 
 ```sh
 # Enron
-python3 mTestLimitedTime.py -d Enron -s S1
+python3 mTestLimitedTime.py -d Enron -s S1   # ~10min
 cd pic && python3 limitedTimeMPlot.py -d Enron -s S1 && cd ..
-python3 mTestLimitedTime.py -d Enron -s S2
+python3 mTestLimitedTime.py -d Enron -s S2   # ~10min
 cd pic && python3 limitedTimeMPlot.py -d Enron -s S2 && cd ..
 
 # Lucene
-python3 mTestLimitedTime.py -d Lucene -s S1
+python3 mTestLimitedTime.py -d Lucene -s S1   # ~10min
 cd pic && python3 limitedTimeMPlot.py -d Lucene -s S1 && cd ..
-python3 mTestLimitedTime.py -d Lucene -s S2
+python3 mTestLimitedTime.py -d Lucene -s S2   # ~10min
 cd pic && python3 limitedTimeMPlot.py -d Lucene -s S2 && cd ..
 ```
 
@@ -277,24 +279,24 @@ cd pic && python3 limitedTimeMPlot.py -d Lucene -s S2 && cd ..
 
 ```sh
 # Run for each dataset/scenario, then plot
-python3 clrzTest.py -d Enron -s S1   && cd pic && python3 clrzPlot.py -d Enron -s S1   && cd ..
-python3 clrzTest.py -d Enron -s S2   && cd pic && python3 clrzPlot.py -d Enron -s S2   && cd ..
-python3 clrzTest.py -d Enron -s S3   && cd pic && python3 clrzPlot.py -d Enron -s S3   && cd ..
-python3 clrzTest.py -d Lucene -s S1 && cd pic && python3 clrzPlot.py -d Lucene -s S1 && cd ..
-python3 clrzTest.py -d Lucene -s S2 && cd pic && python3 clrzPlot.py -d Lucene -s S2 && cd ..
-python3 clrzTest.py -d Lucene -s S3 && cd pic && python3 clrzPlot.py -d Lucene -s S3 && cd ..
+python3 clrzTest.py -d Enron -s S1   && cd pic && python3 clrzPlot.py -d Enron -s S1   && cd ..   # ~1.5h
+python3 clrzTest.py -d Enron -s S2   && cd pic && python3 clrzPlot.py -d Enron -s S2   && cd ..   # ~1.5h
+python3 clrzTest.py -d Enron -s S3   && cd pic && python3 clrzPlot.py -d Enron -s S3   && cd ..   # ~1.5h
+python3 clrzTest.py -d Lucene -s S1 && cd pic && python3 clrzPlot.py -d Lucene -s S1 && cd ..   # ~1.5h
+python3 clrzTest.py -d Lucene -s S2 && cd pic && python3 clrzPlot.py -d Lucene -s S2 && cd ..   # ~1.5h
+python3 clrzTest.py -d Lucene -s S3 && cd pic && python3 clrzPlot.py -d Lucene -s S3 && cd ..   # ~1.5h
 ```
 
 #### Attack against OSSE defense (Figure 15)
 
 ```sh
 # Run for each dataset/scenario, then plot
-python3 osseTest.py -d Enron -s S1   && cd pic && python3 ossePlot.py -d Enron -s S1   && cd ..
-python3 osseTest.py -d Enron -s S2   && cd pic && python3 ossePlot.py -d Enron -s S2   && cd ..
-python3 osseTest.py -d Enron -s S3   && cd pic && python3 ossePlot.py -d Enron -s S3   && cd ..
-python3 osseTest.py -d Lucene -s S1 && cd pic && python3 ossePlot.py -d Lucene -s S1 && cd ..
-python3 osseTest.py -d Lucene -s S2 && cd pic && python3 ossePlot.py -d Lucene -s S2 && cd ..
-python3 osseTest.py -d Lucene -s S3 && cd pic && python3 ossePlot.py -d Lucene -s S3 && cd ..
+python3 osseTest.py -d Enron -s S1   && cd pic && python3 ossePlot.py -d Enron -s S1   && cd ..   # ~1.5h
+python3 osseTest.py -d Enron -s S2   && cd pic && python3 ossePlot.py -d Enron -s S2   && cd ..   # ~1.5h
+python3 osseTest.py -d Enron -s S3   && cd pic && python3 ossePlot.py -d Enron -s S3   && cd ..   # ~1.5h
+python3 osseTest.py -d Lucene -s S1 && cd pic && python3 ossePlot.py -d Lucene -s S1 && cd ..   # ~1.5h
+python3 osseTest.py -d Lucene -s S2 && cd pic && python3 ossePlot.py -d Lucene -s S2 && cd ..   # ~1.5h
+python3 osseTest.py -d Lucene -s S3 && cd pic && python3 ossePlot.py -d Lucene -s S3 && cd ..   # ~1.5h
 ```
 
 ## Experiment Index
