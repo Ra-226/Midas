@@ -6,7 +6,7 @@
 #
 # Default combinations (as in README): {Enron,Lucene} x {S1,S2,S3}
 # (6 runs per attack, ~1.5 h each).
-# Estimated total runtime: roughly 18 compute-hours in total.
+# Estimated total runtime: ~18 h on the reference machine.
 #
 # Execution order: all experiment scripts first (write pic_pkl/),
 # then all plotting scripts (write pic/pictures/).

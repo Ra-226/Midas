@@ -8,8 +8,7 @@
 #
 # Datasets: Enron and Lucene (as in README; the Lucene runs draw the
 # corresponding figures of the paper's Appendix B).
-# Estimated total runtime (reference machine): PR/RR/CR not recorded;
-# IHOP^M ~30 min (Enron), ~1 h (Lucene).
+# Estimated total runtime: ~5 h on the reference machine.
 #
 # Execution order: all experiment scripts first (write pic_pkl/),
 # then all plotting scripts (write pic/pictures/).

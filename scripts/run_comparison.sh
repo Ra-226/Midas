@@ -13,7 +13,7 @@
 #   Fig. 11: {Enron,Lucene} x {S1,S2}      (~25 min Enron / ~40 min Lucene)
 #   Fig. 12: Enron x {S1,S2,S3}            (~3.5 h each)
 #   Fig. 13: {Enron,Lucene} x {S1,S2}      (~10 min each)
-# Estimated total runtime: roughly 35 compute-hours for a full run.
+# Estimated total runtime: ~35 h on the reference machine.
 #
 # Execution order: all experiment scripts first (write pic_pkl/),
 # then all plotting scripts (write pic/pictures/).

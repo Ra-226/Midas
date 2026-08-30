@@ -7,8 +7,7 @@
 #
 # Dataset: Enron (fixed).  Scenarios: S1 and S2 for Figs. 6-7;
 # Fig. 8 takes no scenario argument.
-# Estimated total runtime (reference machine): ~40 min
-# (<2 min per leakage run, ~5 min per RR run, ~10/15 min for the optimize tests).
+# Estimated total runtime: ~40 min on the reference machine.
 #
 # Execution order: all experiment scripts first (write pic_pkl/),
 # then all plotting scripts (write pic/pictures/).

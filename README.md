@@ -100,12 +100,12 @@ Experiment scripts assume the repository root as the working directory, while pl
 
 To run the experiments of a figure group with a single command, execute the corresponding wrapper from the repository root, without any arguments. Each wrapper runs all the README combinations of its group in two phases: first the experiment scripts (writing intermediate results to `pic_pkl/`), then the plotting scripts (exporting the figures into `pic/pictures/`). The detailed per-figure sub-commands are given in `Experiment Commands`.
 
-| Wrapper | Figures | Runs (no arguments) |
-| --- | --- | --- |
-| `bash scripts/run_parameter.sh` | 2–5 | PR, RR, CR, and `IHOP^M` studies on `Enron` and `Lucene` |
-| `bash scripts/run_ablation.sh` | 6–8 | co-absence-leakage and iterative-refinement ablations on `S1` and `S2`, plus the incremental-computation study |
-| `bash scripts/run_comparison.sh` | 9–13 | auxiliary-knowledge comparison (6 pairs), keyword-space `n` (3 runs), similar-runtime on `n` (4 runs), query-count `m` (3 runs), similar-runtime on `m` (4 runs) |
-| `bash scripts/run_defense.sh` | 14–15 | attack against the CLRZ and OSSE defenses (6 pairs each) |
+| Wrapper | Figures | Runs (no arguments) | Estimated total runtime |
+| --- | --- | --- | --- |
+| `bash scripts/run_parameter.sh` | 2–5 | PR, RR, CR, and `IHOP^M` studies on `Enron` and `Lucene` | ~5 h |
+| `bash scripts/run_ablation.sh` | 6–8 | co-absence-leakage and iterative-refinement ablations on `S1` and `S2`, plus the incremental-computation study | ~40 min |
+| `bash scripts/run_comparison.sh` | 9–13 | auxiliary-knowledge comparison (6 pairs), keyword-space `n` (3 runs), similar-runtime on `n` (4 runs), query-count `m` (3 runs), similar-runtime on `m` (4 runs) | ~35 h |
+| `bash scripts/run_defense.sh` | 14–15 | attack against the CLRZ and OSSE defenses (6 pairs each) | ~18 h |
 
 ## Experiment Commands
 
