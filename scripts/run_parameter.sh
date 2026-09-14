@@ -6,22 +6,21 @@
 #   CR   (Fig. 4): python CRTest.py    -> CRPlot.py
 #   IHOP^M (Fig. 5): python ihopMTest.py -> ihopMPlot.py
 #
-# Datasets: Enron and Lucene (as in README; the Lucene runs draw the
-# corresponding figures of the paper's Appendix B).
-# Estimated total runtime: ~5 h on the reference machine.
+# Dataset: Enron (as in README).
+# Estimated total runtime: ~3.5 h on the reference machine.
 #
 # Execution order: all experiment scripts first (write pic_pkl/),
 # then all plotting scripts (write pic/pictures/).
 #
 # Usage: bash scripts/run_parameter.sh [-d <dataset>]
-#   -d <dataset>   only run the given dataset (default: Enron and Lucene)
+#   -d <dataset>   only run the given dataset (default: Enron)
 
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT"
 
-datasets=(Enron Lucene)
+datasets=(Enron)
 while (($#)); do
   case "$1" in
     -d) datasets=("${2:?}"); shift 2 ;;

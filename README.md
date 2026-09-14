@@ -102,7 +102,7 @@ To run the experiments of a figure group with a single command, execute the corr
 
 | Wrapper | Figures | Runs (no arguments) | Estimated total runtime |
 | --- | --- | --- | --- |
-| `bash scripts/run_parameter.sh` | 2–5 | PR, RR, CR, and `IHOP^M` studies on `Enron` and `Lucene` | ~5 h |
+| `bash scripts/run_parameter.sh` | 2–5 | PR, RR, CR, and `IHOP^M` studies on `Enron` | ~3.5 h |
 | `bash scripts/run_ablation.sh` | 6–8 | co-absence-leakage and iterative-refinement ablations on `S1` and `S2`, plus the incremental-computation study | ~40 min |
 | `bash scripts/run_comparison.sh` | 9–13 | auxiliary-knowledge comparison (6 pairs), keyword-space `n` (3 runs), similar-runtime on `n` (4 runs), query-count `m` (3 runs), similar-runtime on `m` (4 runs) | ~35 h |
 | `bash scripts/run_defense.sh` | 14–15 | attack against the CLRZ and OSSE defenses (6 pairs each) | ~18 h |
@@ -119,12 +119,6 @@ python3 PRTest.py --dataset Enron
 cd pic
 python3 PRaPlot.py --dataset Enron
 python3 PRbPlot.py --dataset Enron
-
-# Lucene (Appendix)
-python3 PRTest.py --dataset Lucene
-cd pic
-python3 PRaPlot.py --dataset Lucene
-python3 PRbPlot.py --dataset Lucene
 ```
 
 #### Effect of different parameters on RR accuracy (Figure 3)
@@ -134,11 +128,6 @@ python3 PRbPlot.py --dataset Lucene
 python3 RRTest.py --dataset Enron
 cd pic
 python3 RRPlot.py --dataset Enron
-
-# Lucene (Appendix)
-python3 RRTest.py --dataset Lucene
-cd pic
-python3 RRPlot.py --dataset Lucene
 ```
 
 #### Effect of different parameters on CR accuracy (Figure 4)
@@ -148,11 +137,6 @@ python3 RRPlot.py --dataset Lucene
 python3 CRTest.py --dataset Enron
 cd pic
 python3 CRPlot.py --dataset Enron
-
-# Lucene (Appendix)
-python3 CRTest.py --dataset Lucene
-cd pic
-python3 CRPlot.py --dataset Lucene
 ```
 
 #### Effect of different parameters on `IHOP^M` accuracy (Figure 5)
@@ -162,11 +146,6 @@ python3 CRPlot.py --dataset Lucene
 python3 ihopMTest.py --dataset Enron   # ~30min
 cd pic
 python3 ihopMPlot.py --dataset Enron
-
-# Lucene (Appendix)
-python3 ihopMTest.py --dataset Lucene   # ~1h
-cd pic
-python3 ihopMPlot.py --dataset Lucene
 ```
 
 ### Ablation Studies
@@ -316,13 +295,9 @@ python3 osseTest.py -d Lucene -s S3 && cd pic && python3 ossePlot.py -d Lucene -
 | Study | Run | Plot |
 | --- | --- | --- |
 | PR sensitivity (Figure 2) | `python3 PRTest.py --dataset Enron` | `cd pic && python3 PRaPlot.py --dataset Enron && python3 PRbPlot.py --dataset Enron` |
-| PR sensitivity on Lucene (Appendix) | `python3 PRTest.py --dataset Lucene` | `cd pic && python3 PRaPlot.py --dataset Lucene && python3 PRbPlot.py --dataset Lucene` |
 | RR sensitivity (Figure 3) | `python3 RRTest.py --dataset Enron` | `cd pic && python3 RRPlot.py --dataset Enron` |
-| RR sensitivity on Lucene (Appendix) | `python3 RRTest.py --dataset Lucene` | `cd pic && python3 RRPlot.py --dataset Lucene` |
 | CR sensitivity (Figure 4) | `python3 CRTest.py --dataset Enron` | `cd pic && python3 CRPlot.py --dataset Enron` |
-| CR sensitivity on Lucene (Appendix) | `python3 CRTest.py --dataset Lucene` | `cd pic && python3 CRPlot.py --dataset Lucene` |
 | `IHOP^M` sensitivity (Figure 5) | `python3 ihopMTest.py --dataset Enron` | `cd pic && python3 ihopMPlot.py --dataset Enron` |
-| `IHOP^M` sensitivity on Lucene (Appendix) | `python3 ihopMTest.py --dataset Lucene` | `cd pic && python3 ihopMPlot.py --dataset Lucene` |
 | Co-absence leakage ablation (Figure 6, S1) | `python3 ablationLeakageTest.py --scenarios S1` | `cd pic && python3 ablationLeakagePlot.py --scenarios S1` |
 | Co-absence leakage ablation (Figure 6, S2) | `python3 ablationLeakageTest.py --scenarios S2` | `cd pic && python3 ablationLeakagePlot.py --scenarios S2` |
 | Iterative refinement ablation (Figure 7, S1) | `python3 ablationRRTest.py --scenarios S1` | `cd pic && python3 ablationRRPlot.py --scenarios S1` |
