@@ -54,16 +54,16 @@ The experiments use two datasets, `Enron` and `Lucene`, and three query-generati
 
 ## Implemented Methods and Default Parameters
 
-| Method | Default parameters |
-| --- | --- |
-| `IKK` | `initial temperature=200`, `cooling rate=0.999`, `termination temperature=10^-10`, `rejection threshold=1500` |
-| `Score` | `RefSpeed=10` |
-| `SAP` | $\alpha = 0$ |
-| `IHOP` | `pfree=0.25`, `niters=1000` |
-| `Jigsaw` | $\alpha = 1$, $\beta = 0.9$, `BaseRec=45`, `ConfRec=35`, `RefSpeed=10` |
-| `Midas` | $\rho = 20$, $\sigma = 55$, $\eta = 1$, $\gamma = 4$, $\mu = 25$, $\delta = 10$ |
-| `IHOP^M` | $\theta = 5$, `pfree=0.25`, `niters=500` |
-| `CLRZ` defense | `tpr=0.999`, $\mathrm{fpr} \in [0.01, 0.02, 0.05]$ |
+| Method              | Default parameters |
+|---------------------| --- |
+| `IKK`               | `initial temperature=200`, `cooling rate=0.999`, `termination temperature=10^-10`, `rejection threshold=1500` |
+| `Score`             | `RefSpeed=10` |
+| `SAP`               | $\alpha = 0$ |
+| `IHOP`              | `pfree=0.25`, `niters=1000` |
+| `Jigsaw`            | $\alpha = 1$, $\beta = 0.9$, `BaseRec=45`, `ConfRec=35`, `RefSpeed=10` |
+| `Midas`             | $\rho = 20$, $\sigma = 55$, $\eta = 1$, $\gamma = 4$, $\mu = 25$, $\delta = 10$ |
+| `IHOP^M`            | $\theta = 5$, `pfree=0.25`, `niters=500` |
+| `CLRZ/OSSE` defense | `tpr=0.999`, $\mathrm{fpr} \in [0.01, 0.02, 0.05]$ |
 
 ## Quick Start
 
@@ -108,43 +108,45 @@ We provide two ways to reproduce the experiments: (1) batch scripts for reproduc
 
 ## Experiment Commands
 
+Here `-d` and `-s` are short for `--dataset` and `--scenarios`.
+
 ### Parameter Selection
 
 #### The number and accuracy of prior queries recovered by PR varies with $\rho$ (Figure 2)
 
 ```sh
 # Enron (Figure 2)
-python3 PRTest.py --dataset Enron
+python3 PRTest.py -d Enron
 cd pic
-python3 PRaPlot.py --dataset Enron
-python3 PRbPlot.py --dataset Enron
+python3 PRaPlot.py -d Enron
+python3 PRbPlot.py -d Enron
 ```
 
 #### Effect of different parameters on RR accuracy (Figure 3)
 
 ```sh
 # Enron (Figure 3)
-python3 RRTest.py --dataset Enron
+python3 RRTest.py -d Enron
 cd pic
-python3 RRPlot.py --dataset Enron
+python3 RRPlot.py -d Enron
 ```
 
 #### Effect of different parameters on CR accuracy (Figure 4)
 
 ```sh
 # Enron (Figure 4)
-python3 CRTest.py --dataset Enron
+python3 CRTest.py -d Enron
 cd pic
-python3 CRPlot.py --dataset Enron
+python3 CRPlot.py -d Enron
 ```
 
 #### Effect of different parameters on `IHOP^M` accuracy (Figure 5)
 
 ```sh
 # Enron (Figure 5)
-python3 ihopMTest.py --dataset Enron   # ~30min
+python3 ihopMTest.py -d Enron   # ~30min
 cd pic
-python3 ihopMPlot.py --dataset Enron
+python3 ihopMPlot.py -d Enron
 ```
 
 ### Ablation Studies
@@ -153,28 +155,28 @@ python3 ihopMPlot.py --dataset Enron
 
 ```sh
 # S1
-python3 ablationLeakageTest.py --scenarios S1   # <2min
+python3 ablationLeakageTest.py -s S1   # <2min
 cd pic
-python3 ablationLeakagePlot.py --scenarios S1
+python3 ablationLeakagePlot.py -s S1
 
 # S2
-python3 ablationLeakageTest.py --scenarios S2   # <2min
+python3 ablationLeakageTest.py -s S2   # <2min
 cd pic
-python3 ablationLeakagePlot.py --scenarios S2
+python3 ablationLeakagePlot.py -s S2
 ```
 
 #### Effect of iterative refinement (Figure 7)
 
 ```sh
 # S1
-python3 ablationRRTest.py --scenarios S1   # ~5min
+python3 ablationRRTest.py -s S1   # ~5min
 cd pic
-python3 ablationRRPlot.py --scenarios S1
+python3 ablationRRPlot.py -s S1
 
 # S2
-python3 ablationRRTest.py --scenarios S2   # ~5min
+python3 ablationRRTest.py -s S2   # ~5min
 cd pic
-python3 ablationRRPlot.py --scenarios S2
+python3 ablationRRPlot.py -s S2
 ```
 
 #### Incremental computation (Figure 8)
@@ -193,27 +195,27 @@ python3 ablationOptimizeNPlot.py
 
 ```sh
 # Run for each dataset/scenario, then plot with the matching script
-python3 auxTest.py --dataset Enron --scenarios S1   && cd pic && python3 auxPlot.py -d Enron -s S1   && cd ..   # ~2.5h
-python3 auxTest.py --dataset Enron --scenarios S2   && cd pic && python3 auxPlot.py -d Enron -s S2   && cd ..   # ~2.5h
-python3 auxTest.py --dataset Enron --scenarios S3   && cd pic && python3 auxPlot.py -d Enron -s S3   && cd ..   # ~1.5h
-python3 auxTest.py --dataset Lucene --scenarios S1 && cd pic && python3 auxPlot.py -d Lucene -s S1 && cd ..   # ~2.5h
-python3 auxTest.py --dataset Lucene --scenarios S2 && cd pic && python3 auxPlot.py -d Lucene -s S2 && cd ..   # ~2.5h
-python3 auxTest.py --dataset Lucene --scenarios S3 && cd pic && python3 auxPlot.py -d Lucene -s S3 && cd ..   # ~2.5h
+python3 auxTest.py -d Enron -s S1   && cd pic && python3 auxPlot.py -d Enron -s S1   && cd ..   # ~2.5h
+python3 auxTest.py -d Enron -s S2   && cd pic && python3 auxPlot.py -d Enron -s S2   && cd ..   # ~2.5h
+python3 auxTest.py -d Enron -s S3   && cd pic && python3 auxPlot.py -d Enron -s S3   && cd ..   # ~1.5h
+python3 auxTest.py -d Lucene -s S1 && cd pic && python3 auxPlot.py -d Lucene -s S1 && cd ..   # ~2.5h
+python3 auxTest.py -d Lucene -s S2 && cd pic && python3 auxPlot.py -d Lucene -s S2 && cd ..   # ~2.5h
+python3 auxTest.py -d Lucene -s S3 && cd pic && python3 auxPlot.py -d Lucene -s S3 && cd ..   # ~2.5h
 ```
 
 #### Comparison on keyword space $n$ (Figure 10)
 
 ```sh
 # Enron S1
-python3 nTest.py --dataset Enron --scenarios S1   # ~2.5h
+python3 nTest.py -d Enron -s S1   # ~2.5h
 cd pic && python3 nPlot.py -d Enron -s S1 && python3 nTimePlot.py -d Enron -s S1 && cd ..
 
 # Enron S2
-python3 nTest.py --dataset Enron --scenarios S2   # ~2.5h
+python3 nTest.py -d Enron -s S2   # ~2.5h
 cd pic && python3 nPlot.py -d Enron -s S2 && python3 nTimePlot.py -d Enron -s S2 && cd ..
 
 # Enron S3
-python3 nTest.py --dataset Enron --scenarios S3   # ~2.5h
+python3 nTest.py -d Enron -s S3   # ~2.5h
 cd pic && python3 nPlot.py -d Enron -s S3 && python3 nTimePlot.py -d Enron -s S3 && cd ..
 ```
 
@@ -237,15 +239,15 @@ cd pic && python3 limitedTimeNPlot.py -d Lucene -s S2 && cd ..
 
 ```sh
 # S1
-python3 mTest.py --dataset Enron --scenarios S1   # ~3.5h
+python3 mTest.py -d Enron -s S1   # ~3.5h
 cd pic && python3 mPlot.py -d Enron -s S1 && python3 mTimePlot.py -d Enron -s S1 && cd ..
 
 # S2
-python3 mTest.py --dataset Enron --scenarios S2   # ~3.5h
+python3 mTest.py -d Enron -s S2   # ~3.5h
 cd pic && python3 mPlot.py -d Enron -s S2 && python3 mTimePlot.py -d Enron -s S2 && cd ..
 
 # S3
-python3 mTest.py --dataset Enron --scenarios S3   # ~3.5h
+python3 mTest.py -d Enron -s S3   # ~3.5h
 cd pic && python3 mPlot.py -d Enron -s S3 && python3 mTimePlot.py -d Enron -s S3 && cd ..
 ```
 
